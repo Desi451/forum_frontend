@@ -1,10 +1,13 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from "./login/login.component";
 import { RegistrationComponent } from "./registration/registration.component";
 import { UserRoutingModule } from "./user-routing.module";
+
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MaterialModule } from "../core/material.module";
+import { MatIcon, MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   exports: [
@@ -15,7 +18,9 @@ import { UserRoutingModule } from "./user-routing.module";
     FormsModule,
     UserRoutingModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MaterialModule,
+    MatIconModule
   ],
   declarations: [
     LoginComponent,

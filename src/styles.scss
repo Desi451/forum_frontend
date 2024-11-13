@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-card-title {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+}
+
+router-outlet {
+  width: 100%;
+}

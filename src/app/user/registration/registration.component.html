@@ -1,1 +1,81 @@
-<p>registration works!</p>
+<div class="container centered-container">
+  <mat-card>
+    <mat-card-title>
+      Register
+      <mat-icon>person_add</mat-icon>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-content">
+
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Email</mat-label>
+          <input
+            id="email"
+            type="email"
+            matInput
+            formControlName="email"
+            placeholder="Enter email"
+            required
+          />
+          <mat-icon>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Login</mat-label>
+          <input
+            id="login"
+            type="text"
+            matInput
+            formControlName="login"
+            placeholder="Enter login"
+            required
+          />
+          <mat-icon>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Password</mat-label>
+          <input
+            id="password"
+            type="password"
+            matInput
+            formControlName="password"
+            placeholder="Enter password"
+            required
+          />
+          <mat-icon>lock</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Repeat Password</mat-label>
+          <input
+            id="repeatPassword"
+            type="password"
+            matInput
+            formControlName="repeatPassword"
+            placeholder="Repeat password"
+            required
+          />
+          <mat-icon>lock</mat-icon>
+        </mat-form-field>
+
+        <div class="d-flex justify-content-center mb-3">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="registerForm.invalid"
+          >
+            Register
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-center mb-3" style="padding-top: 15px">
+          <small class="form-text text-muted">
+            Already have an account? <a routerLink="/login">Log In!</a>
+          </small>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

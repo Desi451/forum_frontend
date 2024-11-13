@@ -1,1 +1,61 @@
-<p>login works!</p>
+<div class="container centered-container">
+  <mat-card>
+    <mat-card-title
+      >Login
+      <mat-icon>login</mat-icon>
+    </mat-card-title>
+    <mat-card-content>
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        class="form-content"
+      >
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Email or Login</mat-label>
+          <input
+            id="login"
+            type="text"
+            matInput
+            formControlName="login"
+            placeholder="Enter email or login"
+            required
+          />
+          <mat-icon>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Password</mat-label>
+          <input
+            id="password"
+            type="password"
+            matInput
+            formControlName="password"
+            placeholder="Enter password"
+            required
+          />
+          <mat-icon>lock</mat-icon>
+        </mat-form-field>
+
+        <div class="d-flex justify-content-center mb-3">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="loginForm.invalid"
+          >
+            Login
+          </button>
+        </div>
+
+        <div
+          class="d-flex justify-content-center mb-3"
+          style="padding-top: 15px"
+        >
+          <small class="form-text text-muted">
+            Don't have an account yet? <a routerLink="/register">Sign Up!</a>
+          </small>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
