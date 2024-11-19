@@ -7,7 +7,7 @@ import { UserRoutingModule } from "./user-routing.module";
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from "../core/material.module";
-import { MatIcon, MatIconModule } from "@angular/material/icon";
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   exports: [

@@ -7,17 +7,25 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { UserModule } from './user/user.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from "@angular/material/icon";
+import { ListThreadsComponent } from './threads/list-threads/list-threads.component';
+import { ThreadComponent } from './threads/thread/thread.component';
+import { ThreadsModule } from './threads/threads.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    UserModule
+    MatToolbarModule,
+    MatIconModule,
+    UserModule,
+    ThreadsModule
   ],
   providers: [
     provideClientHydration(),
