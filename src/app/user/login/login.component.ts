@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+
+import { AuthService } from '../../core/auth/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ throw new Error('Method not implemented.');
 
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService
   ) {
     this.initForm();
   }
@@ -25,4 +27,16 @@ throw new Error('Method not implemented.');
       password: ['', Validators.required],
     });
   }
+
+  login(): void {
+    this.authService.login(this.loginForm.value.login, this.loginForm.value.password).subscribe({
+        next: (response) => {
+            this.authService.saveToken(response.token);
+            console.log('Logged in!');
+        },
+        error: (err) => {
+            console.error('Login failed', err);
+        }
+    });
+}
 }

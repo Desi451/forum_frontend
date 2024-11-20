@@ -5,13 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { UserModule } from './user/user.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from "@angular/material/icon";
-import { ListThreadsComponent } from './threads/list-threads/list-threads.component';
-import { ThreadComponent } from './threads/thread/thread.component';
 import { ThreadsModule } from './threads/threads.module';
+import { AuthInterceptor } from './core/auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,8 @@ import { ThreadsModule } from './threads/threads.module';
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
