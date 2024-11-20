@@ -8,6 +8,7 @@ import { ThreadComponent } from "./thread/thread.component";
 import { ListThreadsComponent } from "./list-threads/list-threads.component";
 import { ThreadFormComponent } from './thread-form/thread-form.component';
 import { ThreadRoutingModule } from "./threads-routing.module";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   exports: [
@@ -18,6 +19,7 @@ import { ThreadRoutingModule } from "./threads-routing.module";
     FormsModule,
     MatCardModule,
     MatButtonModule,
+    CommonModule,
     MaterialModule,
     MatIconModule,
     ThreadRoutingModule
