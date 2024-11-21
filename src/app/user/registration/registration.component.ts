@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { error } from "console";
+
+import { AuthService } from "../../core/auth/auth-service";
+import { addUser } from "../../models/user";
 
 @Component({
   selector: 'app-registration',
@@ -9,7 +13,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegistrationComponent {
   registerForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private _authService: AuthService
+  ) {
     this.initForm();
   }
 
@@ -17,7 +24,7 @@ export class RegistrationComponent {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       login: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       repeatPassword: ['', Validators.required],
     }, { validators: this.passwordMatchValidator });
   }
@@ -30,7 +37,16 @@ export class RegistrationComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log("Formularz poprawny, przesyłanie danych:", this.registerForm.value);
+      const res: addUser = {
+        login: this.registerForm.value.login,
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password
+      };
+      this._authService.register(res).subscribe(
+        (error) => {
+          console.error("registration not succesful: " + error);
+        }
+      )
     }
   }
 }

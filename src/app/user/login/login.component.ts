@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { AuthService } from '../../core/auth/auth-service';
+import { AuthService } from "../../core/auth/auth-service";
+import { loginUser } from "../../models/user";
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,6 @@ import { AuthService } from '../../core/auth/auth-service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-onSubmit() {
-throw new Error('Method not implemented.');
-}
   loginForm!: FormGroup;
 
   constructor(
@@ -28,15 +26,23 @@ throw new Error('Method not implemented.');
     });
   }
 
-  login(): void {
-    this.authService.login(this.loginForm.value.login, this.loginForm.value.password).subscribe({
-        next: (response) => {
-            this.authService.saveToken(response.token);
-            console.log('Logged in!');
-        },
-        error: (err) => {
-            console.error('Login failed', err);
-        }
+  onSubmit() {
+    this.login();
+  }
+
+  login() {
+    const data: loginUser = {
+      loginOrEmail: this.loginForm.value.login,
+      password: this.loginForm.value.password
+    }
+    this.authService.login(data).subscribe({
+      next: (response) => {
+        this.authService.saveToken(response.token);
+        console.log('Logged in!');
+      },
+      error: (err) => {
+        console.error('Login failed', err);
+      }
     });
-}
+  }
 }
