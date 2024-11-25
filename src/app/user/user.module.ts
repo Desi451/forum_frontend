@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from "../core/material.module";
 import { MatIconModule } from "@angular/material/icon";
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   exports: [
@@ -24,7 +25,8 @@ import { MatIconModule } from "@angular/material/icon";
   ],
   declarations: [
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    EditProfileComponent
   ]
 })
 export class UserModule { }

@@ -15,3 +15,8 @@ export type loginUser = {
   loginOrEmail: string;
   password: string;
 }
+
+export type updateUserParam = {
+  id: number;
+  param: string;
+}
