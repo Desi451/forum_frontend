@@ -26,6 +26,7 @@
     "@auth0/angular-jwt": "^5.2.0",
     "angular-material-icons": "^0.7.1",
     "express": "^4.18.2",
+    "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

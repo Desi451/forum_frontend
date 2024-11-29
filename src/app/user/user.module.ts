@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from "../core/material.module";
 import { MatIconModule } from "@angular/material/icon";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   exports: [
@@ -17,6 +18,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
   imports: [
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
     UserRoutingModule,
     MatCardModule,
     MatButtonModule,

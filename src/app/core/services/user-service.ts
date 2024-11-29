@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { updateUserParam } from "../../models/user";
+import { updateMail, updatePassword, updateUserParam } from "../../models/user";
 import { environment } from "../enviroment";
 
 @Injectable({
@@ -12,20 +12,19 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  updateNickname(login: updateUserParam): Observable<any> {
-    return this.http.post(`${environment.apiUrl}user/update-nickname`, login);
+  updateNickname(data: updateUserParam): Observable<any> {
+    return this.http.patch(`${environment.apiUrl}user/update-nickname/${data.id}`, data);
   }
 
-  updatePassword(password: updateUserParam): Observable<any> {
-    return this.http.post(`${environment.apiUrl}user/update-login`, password);
+  updatePassword(password: updatePassword): Observable<any> {
+    return this.http.patch(`${environment.apiUrl}user/update-password/${password.id}`, password);
   }
 
-  updateMail(mail: updateUserParam): Observable<any> {
-    return this.http.post(`${environment.apiUrl}user/update-login`, mail);
+  updateMail(mail: updateMail): Observable<any> {
+    return this.http.patch(`${environment.apiUrl}user/update-email/${mail.id}`, mail);
   }
 
-  //tutaj blob wjebac bratku albo ifile
-  updatePfp(pfp: updateUserParam): Observable<any> {
-    return this.http.post(`${environment.apiUrl}user/update-pfp`, pfp);
+  updatePfp(pfp: updatePassword): Observable<any> {
+    return this.http.patch(`${environment.apiUrl}user/update-pfp`, pfp);
   }
 }
