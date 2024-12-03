@@ -1,11 +1,11 @@
+import { isPlatformBrowser } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { addUser, loginUser } from "../../models/user";
 import { environment } from "../enviroment";
-import { isPlatformBrowser } from "@angular/common";
-import { error } from "console";
+import { jwtDecode } from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +25,22 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}auth/register`, newUser);
   }
 
+  refresh(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}auth/refresh-token`);
+  }
 
   saveToken(token: string): void {
-    sessionStorage.setItem('token', token);
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('token', token);
+      this.saveUserData(jwtDecode(token));
+    }
   }
 
   getToken(): string | null {
-    return sessionStorage.getItem('token');
+    if (isPlatformBrowser(this.platformId)) {
+      return sessionStorage.getItem('token');
+    }
+    return null;
   }
 
   logout(): void {
@@ -44,10 +53,14 @@ export class AuthService {
 
   getUserData(): any {
     if (isPlatformBrowser(this.platformId)) {
-      const data = sessionStorage.getItem('userData');
-      return data ? JSON.parse(data) : null;
+      this.refresh().subscribe({
+        next: () => {
+          const data = sessionStorage.getItem('userData');
+          return data ? JSON.parse(data) : null;
+        }
+      })
     }
-    else{
+    else {
       return "session not found";
     }
   }

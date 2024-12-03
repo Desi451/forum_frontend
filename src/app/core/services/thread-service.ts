@@ -20,12 +20,9 @@ export class ThreadService {
     formData.append('title', data.title);
     formData.append('description', data.description);
 
-    // Dodawanie plików do FormData
     data.images.forEach((image) => {
       formData.append('images', image);
     });
-
-    // Dodawanie tagów
     data.tags.forEach((tag) => {
       formData.append('tags', tag);
     });

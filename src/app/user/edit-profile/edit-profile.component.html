@@ -92,10 +92,7 @@
                 <button
                   class="deleteButton"
                   mat-icon-button
-                  (click)="
-                    fileInput.value = '';
-                    editFormImage.get('photo')?.setValue(null)
-                  "
+                  (click)="fileInput.value = ''; removeImage()"
                 >
                   <mat-icon style="margin-top: 16px">close</mat-icon>
                 </button>
@@ -151,9 +148,11 @@
         </mat-form-field>
         <div class="box-button">
           <button mat-fab [disabled]="conPasswordForm.invalid">
-            <mat-icon><span class="material-symbols-outlined">
-              arrow_forward
-              </span></mat-icon>
+            <mat-icon
+              ><span class="material-symbols-outlined">
+                arrow_forward
+              </span></mat-icon
+            >
           </button>
         </div>
       </form>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 
-import { AuthService } from "../../core/auth/auth-service";
 import { UserService } from "../../core/services/user-service";
-import { updateMail, updatePassword, updateUserParam } from "../../models/user";
+import { updateImage, updateMail, updateNickname, updatePassword, user } from "../../models/user";
+import { read } from "fs";
 
 @Component({
   selector: 'app-edit-profile',
@@ -16,29 +16,38 @@ export class EditProfileComponent implements OnInit {
   passwordForm!: FormGroup;
   conPasswordForm!: FormGroup;
   srcResult: any;
-  userData: any;
+  userData: user | undefined;
   confirmForm: boolean = false;
   isPassword: boolean = false;
   editFormImage = this.imb.group({
-    photo: ['assets/defaultAV.png']
+    photo: []
   });
 
   constructor(private fb: FormBuilder,
     private imb: UntypedFormBuilder,
-    private authService: AuthService,
     private userService: UserService
   ) { }
 
   ngOnInit(): void {
 
-    this.userData = this.authService.getUserData();
+    this.userService.get(4).subscribe({
+      next: (data) => {
+        this.userData = data;
+      },
+      error: (err) => {
+        console.error('update failed', err);
+      }
+    })
+
     console.log('User data:', this.userData);
+
+
     this.nickNameForm = this.fb.group({
-      nickname: [this.userData.UserNickname || '', [Validators.required, Validators.minLength(3)]],
+      nickname: [this.userData?.nickname || '', [Validators.required, Validators.minLength(3)]],
     });
 
     this.mailForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [this.userData?.mail || '', [Validators.required, Validators.email]],
     });
 
     this.passwordForm = this.fb.group({
@@ -49,16 +58,18 @@ export class EditProfileComponent implements OnInit {
       conPassword: ['', [Validators.required, Validators.minLength(8)]],
     });
 
-    if (this.userData.UserPFP != "TutajBędzieŚcieżkaDoDomyślnegoPFF.png") {
-      this.editFormImage = this.userData.UserPFP;
+    if (this.userData?.profilePicture) {
+      this.editFormImage = this.imb.group({
+        photo: [this.userData.profilePicture]
+      });
     }
   }
 
   saveNickname(): void {
-    if (this.nickNameForm.valid) {
-      const data: updateUserParam = {
-        id: this.userData.UserID,
-        param: this.nickNameForm.value.nickname,
+    if (this.nickNameForm.valid && this.userData) {
+      const data: updateNickname = {
+        id: this.userData?.id,
+        nickname: this.nickNameForm.value.nickname,
       }
 
       this.userService.updateNickname(data).subscribe({
@@ -86,9 +97,9 @@ export class EditProfileComponent implements OnInit {
   }
 
   confirmSave(): void {
-    if (this.isPassword && this.passwordForm.valid && this.conPasswordForm.valid) {
+    if (this.isPassword && this.passwordForm.valid && this.conPasswordForm.valid && this.userData) {
       const data: updatePassword = {
-        id: this.userData.UserID,
+        id: this.userData.id,
         newPassword: this.passwordForm.value.password,
         oldPassword: this.conPasswordForm.value.conPassword
       }
@@ -101,12 +112,13 @@ export class EditProfileComponent implements OnInit {
         }
       });
     }
-    else if (!this.isPassword && this.mailForm.valid && this.conPasswordForm.valid) {
+    else if (!this.isPassword && this.mailForm.valid && this.conPasswordForm.valid && this.userData) {
       const dataMail: updateMail = {
-        id: this.userData.UserID,
+        id: this.userData.id,
         newEMail: this.mailForm.value.email,
         password: this.conPasswordForm.value.conPassword
       }
+      console.log(dataMail);
       this.userService.updateMail(dataMail).subscribe({
         next: (response) => {
           console.log('mail changed!');
@@ -126,8 +138,32 @@ export class EditProfileComponent implements OnInit {
       const reader = new FileReader();
       reader.addEventListener('load', () => {
         this.editFormImage.get('photo')?.setValue(reader.result as string);
+        if (this.userData && eventTarget?.files?.[0]) {
+          this.userService.updatePfp(this.userData.id, eventTarget.files[0]).subscribe({
+            next: (response) => {
+              console.log('image changed!');
+            },
+            error: (err) => {
+              console.error('update failed', err);
+            }
+          })
+        }
       });
       reader.readAsDataURL(file);
+    }
+  }
+
+  removeImage(): void {
+    this.editFormImage.get('photo')?.setValue(null)
+    if (this.userData) {
+      this.userService.deletePfp(this.userData.id).subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.error('update failed', err);
+        }
+      })
     }
   }
 

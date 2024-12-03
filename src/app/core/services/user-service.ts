@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { updateImage, updateMail, updatePassword, updateUserParam } from "../../models/user";
+import { updateImage, updateMail, updateNickname, updatePassword, user } from "../../models/user";
 import { environment } from "../enviroment";
 
 @Injectable({
@@ -12,7 +12,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  updateNickname(data: updateUserParam): Observable<any> {
+  updateNickname(data: updateNickname): Observable<any> {
     return this.http.patch(`${environment.apiUrl}user/update-nickname/${data.id}`, data);
   }
 
@@ -24,12 +24,17 @@ export class UserService {
     return this.http.patch(`${environment.apiUrl}user/update-email/${mail.id}`, mail);
   }
 
-  updatePfp(pfp: updateImage): Observable<any> {
-    return this.http.patch(`${environment.apiUrl}user/update-pfp`, pfp);
+  updatePfp(id: number, image: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('profilePicture', image);
+    return this.http.patch(`${environment.apiUrl}user/update-pfp/${id}`, formData);
   }
 
   deletePfp(id: number): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}user/update-pfp/${id}`);
+    return this.http.delete(`${environment.apiUrl}user/delete-pfp/${id}`);
   }
 
+  get(id: number): Observable<user> {
+    return this.http.get<user>(`${environment.apiUrl}user/${id}`);
+  }
 }

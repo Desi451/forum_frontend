@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { AuthService } from "../../core/auth/auth-service";
 import { loginUser } from "../../models/user";
-import {jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -40,12 +40,6 @@ export class LoginComponent {
     this.authService.login(data).subscribe({
       next: (response) => {
         this.authService.saveToken(response.token);
-
-        const decodedToken = jwtDecode(response.token);
-        console.log(decodedToken);
-
-        this.authService.saveUserData(decodedToken);
-
         console.log('Logged in!');
       },
       error: (err) => {
