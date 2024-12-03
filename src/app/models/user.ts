@@ -32,3 +32,8 @@ export type updatePassword = {
   oldPassword: string;
   newPassword: string;
 }
+
+export type updateImage = {
+  id: number;
+  image: File;
+}

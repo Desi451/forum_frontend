@@ -13,3 +13,11 @@ export type threadDetail = {
   ogThreadId: number;
   images: File[];
 }
+
+export type createThread = {
+  userId: number;
+  title: string;
+  description: string;
+  images: File[];
+  tags: string[];
+}

@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { updateMail, updatePassword, updateUserParam } from "../../models/user";
+import { updateImage, updateMail, updatePassword, updateUserParam } from "../../models/user";
 import { environment } from "../enviroment";
 
 @Injectable({
@@ -24,7 +24,12 @@ export class UserService {
     return this.http.patch(`${environment.apiUrl}user/update-email/${mail.id}`, mail);
   }
 
-  updatePfp(pfp: updatePassword): Observable<any> {
+  updatePfp(pfp: updateImage): Observable<any> {
     return this.http.patch(`${environment.apiUrl}user/update-pfp`, pfp);
   }
+
+  deletePfp(id: number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}user/update-pfp/${id}`);
+  }
+
 }
