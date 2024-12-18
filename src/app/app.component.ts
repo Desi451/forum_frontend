@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './core/auth/auth-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,20 +9,24 @@ import { AuthService } from './core/auth/auth-service';
 })
 export class AppComponent implements OnInit {
   title = 'forum_frontend';
+  isLoggedIn: boolean = false;
+  private loggedInSubscription: Subscription | undefined;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    // this.authService.refresh().subscribe({
-    //   next: (response) => {
-    //     const newToken = response?.token;
-    //     this.authService.saveToken(newToken);
-    //     const token = this.authService.getToken();
-    //     console.log('Initial token:', token);
-    //   },
-    //   error: (err) => {
-    //     console.error('Failed to refresh token:', err);
-    //   }
-    // });
+    this.loggedInSubscription = this.authService.isLoggedIn$.subscribe((loggedIn: boolean) => {
+      this.isLoggedIn = loggedIn;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.loggedInSubscription) {
+      this.loggedInSubscription.unsubscribe();
+    }
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

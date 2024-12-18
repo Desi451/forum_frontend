@@ -8,15 +8,26 @@
   <mat-toolbar color="primary" class="header-toolbar">
     <span class="header-title">Forum</span>
 
-    <!-- Linki do logowania i rejestracji -->
+    <!-- Linki do logowania i rejestracji (widoczne tylko, gdy użytkownik nie jest zalogowany) -->
     <span class="spacer"></span>
-    <a mat-button class="header-link" routerLink="/login">
+    <a *ngIf="!isLoggedIn" mat-button class="header-link" routerLink="/login">
       <mat-icon>login</mat-icon>
       Log in
     </a>
-    <a mat-button class="header-link" routerLink="/register">
+    <a
+      *ngIf="!isLoggedIn"
+      mat-button
+      class="header-link"
+      routerLink="/register"
+    >
       <mat-icon>person_add</mat-icon>
       Register
+    </a>
+
+    <!-- Przycisk wylogowania (widoczny tylko, gdy użytkownik jest zalogowany) -->
+    <a *ngIf="isLoggedIn" mat-button class="header-link" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Log out
     </a>
   </mat-toolbar>
 </header>

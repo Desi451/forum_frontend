@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { AuthService } from "../../core/auth/auth-service";
 import { loginUser } from "../../models/user";
-import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',

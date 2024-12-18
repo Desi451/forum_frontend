@@ -28,9 +28,6 @@ export class ThreadFormComponent implements OnInit {
       thread_images: [''],
       thread_tags: [''],
     });
-
-    this.currentUser = this.authService.getUserData();
-    console.log(this.currentUser);
   }
 
   onSubmit(): void {
