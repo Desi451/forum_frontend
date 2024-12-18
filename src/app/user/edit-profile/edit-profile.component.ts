@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 
 import { UserService } from "../../core/services/user-service";
-import { updateImage, updateMail, updateNickname, updatePassword, user } from "../../models/user";
-import { read } from "fs";
+import { updateMail, updateNickname, updatePassword, user } from "../../models/user";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-edit-profile',
@@ -25,26 +25,48 @@ export class EditProfileComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private imb: UntypedFormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.initializeForms();
+    const userId = this.route.snapshot.paramMap.get('id');
+    const numericUserId = Number(userId);
+    console.log(numericUserId);
+    if (numericUserId) {
+      this.userService.get(numericUserId).subscribe({
+        next: (data) => {
+          this.userData = data;
+          this.nickNameForm.patchValue({
+            nickname: data.nickname
+          })
 
-    this.userService.get(4).subscribe({
-      next: (data) => {
-        this.userData = data;
-      },
-      error: (err) => {
-        console.error('update failed', err);
-      }
-    })
+          this.mailForm.patchValue({
+            email: data.mail
+          })
 
+          if (data.profilePicture) {
+            this.editFormImage = this.imb.group({
+              photo: [this.userData.profilePicture]
+            });
+          }
+        },
+        error: (err) => {
+          console.error('load failed', err);
+        }
+      });
+    }
+
+  }
+
+  initializeForms(): void {
     this.nickNameForm = this.fb.group({
-      nickname: [this.userData?.nickname || '', [Validators.required, Validators.minLength(3)]],
+      nickname: ['', [Validators.required, Validators.minLength(3)]],
     });
 
     this.mailForm = this.fb.group({
-      email: [this.userData?.mail || '', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
     });
 
     this.passwordForm = this.fb.group({

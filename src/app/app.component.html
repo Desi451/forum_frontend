@@ -24,11 +24,16 @@
       Register
     </a>
 
-    <!-- Przycisk wylogowania (widoczny tylko, gdy użytkownik jest zalogowany) -->
-    <a *ngIf="isLoggedIn" mat-button class="header-link" (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      Log out
-    </a>
+    <ng-container *ngIf="isLoggedIn">
+      <a mat-button class="header-link" (click)="goEdit()">
+        <mat-icon>account_circle</mat-icon>
+        Profile
+      </a>
+      <a mat-button class="header-link" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Log out
+      </a>
+    </ng-container>
   </mat-toolbar>
 </header>
 

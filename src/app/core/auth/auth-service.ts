@@ -6,7 +6,6 @@ import { BehaviorSubject, Observable, tap } from "rxjs";
 import { addUser, loginUser } from "../../models/user";
 import { environment } from "../enviroment";
 import { jwtDecode } from "jwt-decode";
-import { get } from "node:http";
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +21,8 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}auth/login`, login).pipe(
       tap((response: any) => {
         if (response && response.token) {
-          this.saveToken(response.token);  // Zapisz token w sessionStorage
-          this.loggedInSubject.next(true);  // Ustaw stan zalogowania na true
+          this.saveToken(response.token);
+          this.loggedInSubject.next(true);
         }
       })
     );
@@ -33,8 +32,6 @@ export class AuthService {
   }
 
   refresh(): Observable<any> {
-    //return this.http.get(`${environment.apiUrl}auth/refresh-token`);
-
     const token = this.getToken();
     console.log("Token: " + token);
     return this.http.get(`${environment.apiUrl}auth/refresh-token`, {
@@ -47,7 +44,10 @@ export class AuthService {
   saveToken(token: string): void {
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.setItem('token', token);
-      this.saveUserData(jwtDecode(token));
+      const userData = jwtDecode(token);
+      console.log(userData);
+      sessionStorage.setItem('userData', JSON.stringify(userData));
+      this.loggedInSubject.next(true);
     }
   }
 
@@ -60,9 +60,9 @@ export class AuthService {
 
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
-      sessionStorage.removeItem('token');  // Usuń token
-      sessionStorage.removeItem('userData');  // Usuń dane użytkownika (jeśli zapisane)
-      this.loggedInSubject.next(false);  // Ustaw stan zalogowania na false
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('userData');
+      this.loggedInSubject.next(false);
     }
   }
 
@@ -77,6 +77,22 @@ export class AuthService {
     }
     return null;
   }
+
+  getUserId(): number | undefined {
+    if (isPlatformBrowser(this.platformId)) {
+      const data = sessionStorage.getItem('userData');
+      if (data) {
+        try {
+          const parsedData = JSON.parse(data);
+          return parsedData.UserID ? +parsedData.UserID : undefined;
+        } catch (error) {
+          console.error('Error parsing userData:', error);
+        }
+      }
+    }
+    return undefined;
+  }
+
 
   get isLoggedIn$(): Observable<boolean> {
     return this.loggedInSubject.asObservable();

@@ -15,7 +15,7 @@ const routes: Routes = [
     component: RegistrationComponent
   },
   {
-    path: 'edit',
+    path: 'edit/:id',
     component: EditProfileComponent
   }
 ];
