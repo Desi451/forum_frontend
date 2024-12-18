@@ -30,6 +30,7 @@ export class ThreadFormComponent implements OnInit {
     });
 
     this.currentUser = this.authService.getUserData();
+    console.log(this.currentUser);
   }
 
   onSubmit(): void {

@@ -39,9 +39,6 @@ export class EditProfileComponent implements OnInit {
       }
     })
 
-    console.log('User data:', this.userData);
-
-
     this.nickNameForm = this.fb.group({
       nickname: [this.userData?.nickname || '', [Validators.required, Validators.minLength(3)]],
     });
