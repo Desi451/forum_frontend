@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { AuthService } from "../../core/auth/auth-service";
 import { loginUser } from "../../models/user";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.initForm();
   }
@@ -40,6 +42,7 @@ export class LoginComponent {
       next: (response) => {
         this.authService.saveToken(response.token);
         console.log('Logged in!');
+        this.router.navigate([`/`], { replaceUrl: true });
       },
       error: (err) => {
         console.error('Login failed', err);

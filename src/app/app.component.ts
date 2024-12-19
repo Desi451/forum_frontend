@@ -36,7 +36,6 @@ export class AppComponent implements OnInit {
 
   goEdit(): void {
     const id = this.authService.getUserId();
-    console.log(id);
     if (id) {
       this.router.navigate([`/edit/${id}`, { replaceUrl: true }]);
     }

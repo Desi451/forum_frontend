@@ -7,15 +7,15 @@ import { ThreadFormComponent } from "./thread-form/thread-form.component";
 
 const routes: Routes = [
   {
-      path: 'threads',
-      component: ListThreadsComponent
+    path: 'threads',
+    component: ListThreadsComponent
   },
   {
     path: 'thread', // + id dodac
     component: ThreadComponent
   },
   {
-    path: 'add',
+    path: 'thread/add',
     component: ThreadFormComponent
   }
 ];

@@ -31,14 +31,15 @@ export class ThreadFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.threadForm.valid) {
+    const id = this.authService.getUserId();
+    if (this.threadForm.valid && id) {
       console.log('Form data:', this.threadForm.value);
       const thread: createThread = {
         title: this.threadForm.value.title,
         description: this.threadForm.value.description,
         images: this.selectedFiles,
         tags: this.splitString(this.threadForm.value.thread_tags),
-        userId: this.currentUser.UserID
+        userId: id
       }
 
       this.threadService.add(thread).subscribe({
