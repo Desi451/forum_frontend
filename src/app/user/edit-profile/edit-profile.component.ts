@@ -45,15 +45,22 @@ export class EditProfileComponent implements OnInit {
           this.mailForm.patchValue({
             email: data.mail
           })
-
-          if (data.profilePicture) {
-            this.editFormImage = this.imb.group({
-              photo: [this.userData.profilePicture]
-            });
-          }
         },
         error: (err) => {
           console.error('load failed', err);
+        }
+      });
+
+      this.userService.getUserProfilePicture(numericUserId).subscribe({
+        next: (data) => {
+          console.log(data);
+          if (data) {
+            this.editFormImage.get('photo')?.setValue(data.profilePictureUrl);
+          }
+
+        },
+        error: (err) => {
+          console.error('load of image failed', err);
         }
       });
     }

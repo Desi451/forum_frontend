@@ -37,4 +37,8 @@ export class UserService {
   get(id: number): Observable<user> {
     return this.http.get<user>(`${environment.apiUrl}user/${id}`);
   }
+
+  getUserProfilePicture(id: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}user/${id}/profile-picture`);
+  }
 }
