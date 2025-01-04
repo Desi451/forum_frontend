@@ -1,19 +1,34 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
+  min-height: 100vh;
+}
+
+.header-toolbar {
+  width: 100%;
+  padding-left: 60px;
+  padding-right: 60px;
+  display: flex;
+  align-items: center;
+  background-color: rgb(80, 80, 80);
+  border-bottom: 2px solid #7b1fa2;
 }
 
 .content {
   flex: 1;
+  overflow-y: auto;
   background-color: rgb(100, 100, 100);
 }
 
 .footer-toolbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
   padding: 10px;
   justify-content: center;
   background-color: rgb(80, 80, 80);
@@ -40,21 +55,6 @@
 
 .footer-link:hover {
   text-decoration: underline;
-}
-
-.header-toolbar {
-  width: 100%;
-  padding-left: 60px;
-  padding-right: 60px;
-  display: flex;
-  align-items: center;
-  background-color: rgb(80, 80, 80);
-  border-bottom: 2px solid #7b1fa2;
-}
-
-.header-title {
-  font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .spacer {

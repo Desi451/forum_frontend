@@ -11,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from "@angular/material/icon";
 import { ThreadsModule } from './threads/threads.module';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AuthInterceptor } from './core/auth/auth.interceptor';
     MatToolbarModule,
     MatIconModule,
     UserModule,
-    ThreadsModule
+    ThreadsModule,
+    MatPaginatorModule
   ],
   providers: [
     provideClientHydration(),

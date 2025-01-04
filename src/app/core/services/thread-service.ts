@@ -1,8 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { createThread } from "../../models/thread";
+import { createThread, thread, ThreadListPagination } from "../../models/thread";
 import { environment } from "../enviroment";
 
 @Injectable({
@@ -29,4 +29,15 @@ export class ThreadService {
     return this.http.post(`${environment.apiUrl}thread/create-thread`, formData);
   }
 
+  getThreads(pageNumber: number, pageSize: number): Observable<ThreadListPagination> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<ThreadListPagination>(`${environment.apiUrl}thread/threads`, { params });
+  }
+
+  getThread(id: number): Observable<thread> {
+    return this.http.get<thread>(`${environment.apiUrl}thread/thread/${id}`,);
+  }
 }

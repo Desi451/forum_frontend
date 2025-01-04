@@ -11,11 +11,11 @@ const routes: Routes = [
     component: ListThreadsComponent
   },
   {
-    path: 'thread', // + id dodac
+    path: 'thread/:id',
     component: ThreadComponent
   },
   {
-    path: 'thread/add',
+    path: 'thread/new/add',
     component: ThreadFormComponent
   }
 ];

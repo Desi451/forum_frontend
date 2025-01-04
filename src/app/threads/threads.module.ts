@@ -9,6 +9,7 @@ import { ListThreadsComponent } from "./list-threads/list-threads.component";
 import { ThreadFormComponent } from './thread-form/thread-form.component';
 import { ThreadRoutingModule } from "./threads-routing.module";
 import { CommonModule } from "@angular/common";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 @NgModule({
   exports: [
@@ -22,7 +23,8 @@ import { CommonModule } from "@angular/common";
     CommonModule,
     MaterialModule,
     MatIconModule,
-    ThreadRoutingModule
+    ThreadRoutingModule,
+    MatPaginatorModule
   ],
   declarations: [
     ThreadComponent,

@@ -1,65 +1,61 @@
-<!-- <header>
-  <mat-toolbar color="primary" class="header-toolbar">
-     Forum
-    </mat-toolbar>
-</header> -->
-
-<header>
-  <mat-toolbar color="primary" class="header-toolbar">
-    <span class="header-title">Forum</span>
-
-    <!-- Linki do logowania i rejestracji (widoczne tylko, gdy użytkownik nie jest zalogowany) -->
-    <span class="spacer"></span>
-    <a *ngIf="!isLoggedIn" mat-button class="header-link" routerLink="/login">
-      <mat-icon>login</mat-icon>
-      Log in
-    </a>
-    <a
-      *ngIf="!isLoggedIn"
-      mat-button
-      class="header-link"
-      routerLink="/register"
-    >
-      <mat-icon>person_add</mat-icon>
-      Register
-    </a>
-
-    <ng-container *ngIf="isLoggedIn">
-      <a mat-button class="header-link" (click)="goEdit()">
-        <mat-icon>account_circle</mat-icon>
-        Profile
-      </a>
-      <a mat-button class="header-link" (click)="logout()">
-        <mat-icon>logout</mat-icon>
-        Log out
-      </a>
-    </ng-container>
-  </mat-toolbar>
-</header>
-
 <div class="app-container">
+  <header>
+    <mat-toolbar color="primary" class="header-toolbar">
+      <span class="header-title">Forum</span>
+      <span class="spacer"></span>
+      <a *ngIf="!isLoggedIn" mat-button class="header-link" routerLink="/login">
+        <mat-icon>login</mat-icon>
+        Log in
+      </a>
+      <a
+        *ngIf="!isLoggedIn"
+        mat-button
+        class="header-link"
+        routerLink="/register"
+      >
+        <mat-icon>person_add</mat-icon>
+        Register
+      </a>
+      <ng-container *ngIf="isLoggedIn">
+        <a mat-button class="header-link" (click)="goEdit()">
+          <mat-icon>account_circle</mat-icon>
+          Profile
+        </a>
+        <a mat-button class="header-link" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Log out
+        </a>
+      </ng-container>
+    </mat-toolbar>
+  </header>
+
   <div class="content">
     <router-outlet></router-outlet>
   </div>
 
-  <mat-toolbar color="primary" class="footer-toolbar">
-    <div class="footer-content">
-      <div class="footer-section">
-        &copy; 2024 - Forum -
-        <a routerLink="/privacy" class="footer-link">Privacy</a>
+  <footer>
+    <mat-toolbar color="primary" class="footer-toolbar">
+      <div class="footer-content">
+        <div class="footer-section">
+          &copy; 2024 - Forum -
+          <a routerLink="/privacy" class="footer-link">Privacy</a>
+        </div>
+        <div class="footer-section">
+          <mat-icon style="padding-right: 4px">terminal</mat-icon>Authors -
+          <a
+            href="https://github.com/BubbleWaffle"
+            class="footer-link"
+            target="_blank"
+            >Błażej K</a
+          >
+          <a
+            href="https://github.com/desi451"
+            class="footer-link"
+            target="_blank"
+            >Mikołaj D</a
+          >
+        </div>
       </div>
-      <div class="footer-section">
-        <mat-icon style="padding-right: 4px">terminal</mat-icon>Authors -
-        <a
-          href="https://github.com/BubbleWaffle"
-          class="footer-link"
-          target="_blank"
-          >Błażej K</a
-        >
-        <a href="https://github.com/desi451" class="footer-link" target="_blank"
-          >Mikołaj D</a
-        >
-      </div>
-    </div>
-  </mat-toolbar>
+    </mat-toolbar>
+  </footer>
 </div>

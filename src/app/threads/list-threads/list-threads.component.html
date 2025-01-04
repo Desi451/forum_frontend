@@ -1,8 +1,14 @@
 <div class="centered-container">
   <div class="threads-container">
-    <mat-card *ngFor="let thread of threads" class="thread-card">
+    <mat-card *ngFor="let thread of data.data" class="thread-card">
       <mat-card-header>
-        <div mat-card-avatar class="thread-avatar"></div>
+        <div
+          mat-card-avatar
+          class="thread-avatar"
+          [ngStyle]="{
+            'background-image': 'url(' + (thread.image || defaultImage) + ')'
+          }"
+        ></div>
         <mat-card-title>{{ thread.title }}</mat-card-title>
         <mat-card-subtitle>
           By {{ thread.author }} |
@@ -19,12 +25,20 @@
             mat-raised-button
             color="primary"
             class="details-button"
-            (click)="onDetails(thread.id)"
+            (click)="onDetails(thread.threadId)"
           >
             Details
           </button>
         </div>
       </mat-card-content>
     </mat-card>
+    <mat-paginator
+      [length]="data.totalCount"
+      [pageSize]="data.pageSize"
+      [pageSizeOptions]="[2, 5, 10, 15]"
+      (page)="handlePageEvent($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
   </div>
 </div>

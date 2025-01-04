@@ -1,1 +1,51 @@
-<p>thread works!</p>
+<div class="container">
+  <mat-card class="thread-card">
+    <mat-card-header>
+      <div
+        mat-card-avatar
+        class="thread-avatar"
+        [ngStyle]="{
+          'background-image': 'url(' + (data.image || defaultImage) + ')'
+        }"
+      ></div>
+      <mat-card-title>{{ data.title }}</mat-card-title>
+      <mat-card-subtitle>
+        By {{ data.author }} |
+        {{ data.creationDate | date : "shortDate" }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ data.description }}</p>
+      <div class="tags-and-actions">
+        <div class="tags">
+          <span *ngFor="let tag of data.tags" class="tag">#{{ tag }}</span>
+        </div>
+      </div>
+      <div *ngIf="data.images?.length > 0" class="container-small">
+        <mat-card class="example-card" appearance="outlined">
+          <img
+            class="img-slides"
+            mat-card-image
+            [src]="data.images[currentIndex] || defaultImage"
+          />
+          <mat-card-actions>
+            <button
+              mat-button
+              (click)="goToPrevious()"
+              [disabled]="currentIndex === 0"
+            >
+              PREVIOUS
+            </button>
+            <button
+              mat-button
+              (click)="goToNext()"
+              [disabled]="currentIndex === data.images.length - 1"
+            >
+              NEXT
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

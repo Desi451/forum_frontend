@@ -1,11 +1,12 @@
 export type thread = {
-  id: number;
+  threadId: number;
+  title: string;
   authorId: number;
   author: string;
-  title: string;
   description: string;
-  tags: string[];
   creationDate: Date;
+  tags: string[];
+  image: string;
 }
 
 export type threadDetail = {
@@ -20,4 +21,12 @@ export type createThread = {
   description: string;
   images: File[];
   tags: string[];
+}
+
+export type ThreadListPagination = {
+  data: thread[];
+  totalCount: number;
+  totalPages: number;
+  currentPage: number;
+  pageSize: number;
 }

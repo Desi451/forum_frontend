@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { thread } from '../../models/thread';
+import { ThreadListPagination } from '../../models/thread';
+import { ThreadService } from '../../core/services/thread-service';
+import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-threads',
@@ -8,41 +11,47 @@ import { thread } from '../../models/thread';
 })
 export class ListThreadsComponent implements OnInit {
 
-  ngOnInit(): void {
+  public data: ThreadListPagination = {
+    data: [],
+    totalCount: 0,
+    totalPages: 0,
+    currentPage: 1,
+    pageSize: 2
+  };
+  defaultImage: string = 'assets/defaultThread.png';
 
+  constructor(
+    private threadService: ThreadService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.loadData();
   }
 
   onDetails(threadId: number): void {
-    console.log('Thread ID:', threadId);
+    if (threadId) {
+      this.router.navigate([`/thread/${threadId}`]);
+    }
   }
 
-  threads: thread[] = [
-    {
-      id: 1,
-      authorId: 101,
-      author: 'JohnDoe',
-      title: 'Understanding TypeScript',
-      description: 'A comprehensive guide to mastering TypeScript in web development.',
-      tags: ['typescript', 'programming', 'webdev'],
-      creationDate: new Date('2024-01-10'),
-    },
-    {
-      id: 2,
-      authorId: 102,
-      author: 'JaneSmith',
-      title: 'Angular vs React: A Comparison',
-      description: 'An in-depth comparison of Angular and React for modern web applications.',
-      tags: ['angular', 'react', 'frontend'],
-      creationDate: new Date('2024-02-15'),
-    },
-    {
-      id: 3,
-      authorId: 103,
-      author: 'DevGuru',
-      title: '10 Tips for Writing Clean Code',
-      description: 'Learn how to write clean, maintainable, and efficient code with these 10 tips.',
-      tags: ['coding', 'best-practices', 'development'],
-      creationDate: new Date('2024-03-05'),
-    }
-  ];
+  handlePageEvent(e: PageEvent) {
+    this.data.totalCount = e.length;
+    this.data.pageSize = e.pageSize;
+    this.data.currentPage = e.pageIndex + 1;
+    this.loadData();
+  }
+
+  loadData(): void {
+    console.log(this.data.currentPage);
+    console.log(this.data.pageSize);
+    this.threadService.getThreads(this.data.currentPage, this.data.pageSize).subscribe({
+      next: (data) => {
+        this.data = data;
+      },
+      error: (err) => {
+        console.error('load failed', err);
+      }
+    });
+  }
 }
