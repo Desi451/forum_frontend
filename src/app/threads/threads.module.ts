@@ -33,7 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ThreadComponent,
     ListThreadsComponent,
     ThreadFormComponent,
-    CommentFormComponent
+    CommentFormComponent,
   ]
 })
 export class ThreadsModule { }

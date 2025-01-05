@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ThreadService } from '../../core/services/thread-service';
 import { CommentFormComponent } from '../../shared/comment-form/comment-form.component';
@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './thread.component.scss'
 })
 export class ThreadComponent implements OnInit {
-
+  @Input() thread: any;
   threadId: number | undefined;
   data: any = {
     image: '',
@@ -31,16 +31,7 @@ export class ThreadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.threadId = Number(this.route.snapshot.paramMap.get('id'));
-    this.threadService.getThread(this.threadId).subscribe({
-      next: (data) => {
-        this.data = data;
-        console.log(data);
-      },
-      error: (err) => {
-        console.error('load failed', err);
-      }
-    });
+    this.loadData();
   }
 
   currentIndex: number = 1;
@@ -57,16 +48,34 @@ export class ThreadComponent implements OnInit {
     }
   }
 
-  openForm(): void {
+  openForm(threadId: number): void {
     const dialogRef = this.dialog.open(CommentFormComponent, {
       width: '600px',
-      data: { parentId: this.threadId }
+      data: { parentId: threadId }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Thread data submitted:', result);
       }
+      this.loadData();
     });
+  }
+
+  loadData(): void {
+    if (!this.thread) { // Jeśli brak danych w "thread"
+      this.threadId = Number(this.route.snapshot.paramMap.get('id'));
+      this.threadService.getThread(this.threadId).subscribe({
+        next: (data) => {
+          this.data = data;
+          console.log(data);
+        },
+        error: (err) => {
+          console.error('load failed', err);
+        }
+      });
+    } else {
+      this.data = this.thread; // Gdy wątek został przekazany z rodzica
+    }
   }
 }
