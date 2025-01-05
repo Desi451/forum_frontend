@@ -12,6 +12,7 @@ import { CommonModule } from "@angular/common";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { CommentFormComponent } from "../shared/comment-form/comment-form.component";
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   exports: [
@@ -27,13 +28,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     ThreadRoutingModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSlideToggleModule
   ],
   declarations: [
     ThreadComponent,
     ListThreadsComponent,
     ThreadFormComponent,
-    CommentFormComponent,
+    CommentFormComponent
   ]
 })
 export class ThreadsModule { }

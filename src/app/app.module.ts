@@ -12,10 +12,11 @@ import { MatIconModule } from "@angular/material/icon";
 import { ThreadsModule } from './threads/threads.module';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     UserModule,
     ThreadsModule,
     MatPaginatorModule,
+    AdminModule
   ],
   providers: [
     provideClientHydration(),
