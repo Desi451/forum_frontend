@@ -5,7 +5,7 @@
         mat-card-avatar
         class="thread-avatar"
         [ngStyle]="{
-          'background-image': 'url(' + (data.image || defaultImage) + ')'
+          'background-image': 'url(' + (data.images[0] || defaultImage) + ')'
         }"
       ></div>
       <mat-card-title>{{ data.title }}</mat-card-title>
@@ -32,7 +32,7 @@
             <button
               mat-button
               (click)="goToPrevious()"
-              [disabled]="currentIndex === 0"
+              [disabled]="currentIndex === 1"
             >
               PREVIOUS
             </button>
@@ -46,6 +46,14 @@
           </mat-card-actions>
         </mat-card>
       </div>
+      <button
+        mat-raised-button
+        class="button-left"
+        color="primary"
+        (click)="openForm()"
+      >
+        Comment
+      </button>
     </mat-card-content>
   </mat-card>
 </div>

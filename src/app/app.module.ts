@@ -12,6 +12,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { ThreadsModule } from './threads/threads.module';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { CommentFormComponent } from './shared/comment-form/comment-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     UserModule,
     ThreadsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [
     provideClientHydration(),

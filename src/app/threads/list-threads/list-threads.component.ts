@@ -43,8 +43,6 @@ export class ListThreadsComponent implements OnInit {
   }
 
   loadData(): void {
-    console.log(this.data.currentPage);
-    console.log(this.data.pageSize);
     this.threadService.getThreads(this.data.currentPage, this.data.pageSize).subscribe({
       next: (data) => {
         this.data = data;

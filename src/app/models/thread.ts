@@ -23,6 +23,13 @@ export type createThread = {
   tags: string[];
 }
 
+export type createSubThread = {
+  userId: number;
+  parentId: number;
+  description: string;
+  images: File[];
+}
+
 export type ThreadListPagination = {
   data: thread[];
   totalCount: number;

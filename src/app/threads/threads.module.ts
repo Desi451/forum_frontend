@@ -10,6 +10,8 @@ import { ThreadFormComponent } from './thread-form/thread-form.component';
 import { ThreadRoutingModule } from "./threads-routing.module";
 import { CommonModule } from "@angular/common";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { CommentFormComponent } from "../shared/comment-form/comment-form.component";
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   exports: [
@@ -24,12 +26,14 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MaterialModule,
     MatIconModule,
     ThreadRoutingModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ],
   declarations: [
     ThreadComponent,
     ListThreadsComponent,
-    ThreadFormComponent
+    ThreadFormComponent,
+    CommentFormComponent
   ]
 })
 export class ThreadsModule { }
