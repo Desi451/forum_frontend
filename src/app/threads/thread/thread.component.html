@@ -16,12 +16,12 @@
     </mat-card-header>
     <mat-card-content>
       <p>{{ data.description }}</p>
-      <div class="tags-and-actions">
+      <div *ngIf="!parentThread" class="tags-and-actions">
         <div class="tags">
           <span *ngFor="let tag of data.tags" class="tag">#{{ tag }}</span>
         </div>
       </div>
-      <div *ngIf="data.images?.length > 1" class="container-small">
+      <div *ngIf="data.images.length > 1" class="container-small">
         <mat-card class="example-card" appearance="outlined">
           <img
             class="img-slides"
@@ -58,9 +58,10 @@
   </mat-card>
 </div>
 
-<div *ngIf="data.subthreads?.length > 0" style="padding-left: 20px">
+<div *ngIf="data.subthreads.length > 0" style="padding-left: 20px">
   <app-thread
     *ngFor="let subthread of data.subthreads"
     [thread]="subthread"
+    [parentThread]="true"
   ></app-thread>
 </div>

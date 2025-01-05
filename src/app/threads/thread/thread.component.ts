@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ThreadService } from '../../core/services/thread-service';
 import { CommentFormComponent } from '../../shared/comment-form/comment-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { thread } from '../../models/thread';
 
 @Component({
   selector: 'app-thread',
@@ -11,15 +12,19 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ThreadComponent implements OnInit {
   @Input() thread: any;
+  @Input() parentThread: boolean = false;
   threadId: number | undefined;
-  data: any = {
+  data: thread = {
+    threadId: 0,
     image: '',
     title: '',
-    author: '',
-    creationDate: null,
+    authorNickname: '',
+    authorId: 0,
+    creationDate: undefined,
     description: '',
     tags: [],
-    images: []
+    images: [],
+    subthreads: []
   };
 
   defaultImage: string = 'assets/defaultThread.png';
@@ -63,7 +68,7 @@ export class ThreadComponent implements OnInit {
   }
 
   loadData(): void {
-    if (!this.thread) { // Jeśli brak danych w "thread"
+    if (!this.thread) {
       this.threadId = Number(this.route.snapshot.paramMap.get('id'));
       this.threadService.getThread(this.threadId).subscribe({
         next: (data) => {
@@ -75,7 +80,7 @@ export class ThreadComponent implements OnInit {
         }
       });
     } else {
-      this.data = this.thread; // Gdy wątek został przekazany z rodzica
+      this.data = this.thread;
     }
   }
 }

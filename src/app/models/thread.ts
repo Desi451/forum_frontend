@@ -2,11 +2,13 @@ export type thread = {
   threadId: number;
   title: string;
   authorId: number;
-  author: string;
+  authorNickname: string;
   description: string;
-  creationDate: Date;
+  creationDate?: Date;
   tags: string[];
   image: string;
+  images: string[];
+  subthreads: thread[]
 }
 
 export type threadDetail = {
