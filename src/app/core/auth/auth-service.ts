@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { BehaviorSubject, Observable, tap } from "rxjs";
 
-import { addUser, loginUser } from "../../models/user";
+import { addUser, CustomJwtPayload, loginUser } from "../../models/user";
 import { environment } from "../enviroment";
 import { jwtDecode } from "jwt-decode";
 
@@ -11,8 +11,8 @@ import { jwtDecode } from "jwt-decode";
   providedIn: 'root'
 })
 export class AuthService {
-
   private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.getToken() !== null);
+  private adminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.getToken() !== null);
 
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object) { }
@@ -27,6 +27,7 @@ export class AuthService {
       })
     );
   }
+
   register(newUser: addUser): Observable<any> {
     return this.http.post(`${environment.apiUrl}auth/register`, newUser);
   }
@@ -44,9 +45,14 @@ export class AuthService {
   saveToken(token: string): void {
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.setItem('token', token);
-      const userData = jwtDecode(token);
-      console.log(userData);
-      sessionStorage.setItem('userData', JSON.stringify(userData));
+
+      const userData = jwtDecode<CustomJwtPayload>(token);
+      const userDataString = JSON.stringify(userData);
+      sessionStorage.setItem('userData', userDataString);
+      if (userData.UserRole == '1') {
+        this.adminSubject.next(true);
+      }
+
       this.loggedInSubject.next(true);
     }
   }
@@ -93,8 +99,11 @@ export class AuthService {
     return undefined;
   }
 
-
   get isLoggedIn$(): Observable<boolean> {
     return this.loggedInSubject.asObservable();
+  }
+
+  get isAdmin$(): Observable<boolean> {
+    return this.adminSubject.asObservable();
   }
 }

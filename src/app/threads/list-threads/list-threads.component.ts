@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
   styleUrl: './list-threads.component.scss'
 })
 export class ListThreadsComponent implements OnInit {
-
   public data: ThreadListPagination = {
     data: [],
     totalCount: 0,
@@ -49,6 +48,19 @@ export class ListThreadsComponent implements OnInit {
       },
       error: (err) => {
         console.error('load failed', err);
+      }
+    });
+  }
+
+  isChecked = false;
+
+  onChange(threadId: number) {
+    this.threadService.subscribeThread(threadId).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.error('subscribe failed', err);
       }
     });
   }

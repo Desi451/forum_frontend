@@ -55,4 +55,8 @@ export class ThreadService {
   getThread(id: number): Observable<thread> {
     return this.http.get<thread>(`${environment.apiUrl}thread/thread/${id}`,);
   }
+
+  subscribeThread(threadId: number): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}thread/subscribe/${threadId}`, null);
+  }
 }

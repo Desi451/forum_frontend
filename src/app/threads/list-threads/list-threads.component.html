@@ -14,8 +14,11 @@
           By {{ thread.authorNickname }} |
           {{ thread.creationDate | date : "shortDate" }}
         </mat-card-subtitle>
-        <!-- <mat-icon>star</mat-icon>
-        <mat-icon>star_border</mat-icon> -->
+        <mat-slide-toggle
+          [checked]="isChecked"
+          (change)="onChange(thread.threadId)"
+          >Slide me!</mat-slide-toggle
+        >
       </mat-card-header>
       <mat-card-content>
         <p>{{ thread.description }}</p>

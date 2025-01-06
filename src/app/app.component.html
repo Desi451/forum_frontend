@@ -17,6 +17,12 @@
         Register
       </a>
       <ng-container *ngIf="isLoggedIn">
+        <div *ngIf="isAdmin">
+          <a mat-button class="header-link" (click)="goAdmin()">
+            <mat-icon>build</mat-icon>
+            Admin
+          </a>
+        </div>
         <a mat-button class="header-link" (click)="goEdit()">
           <mat-icon>account_circle</mat-icon>
           Profile

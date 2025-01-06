@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'forum_frontend';
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
   userId: number | undefined;
   private loggedInSubscription: Subscription | undefined;
 
@@ -21,6 +22,10 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.loggedInSubscription = this.authService.isLoggedIn$.subscribe((loggedIn: boolean) => {
       this.isLoggedIn = loggedIn;
+    });
+
+    this.loggedInSubscription = this.authService.isAdmin$.subscribe((res: boolean) => {
+      this.isAdmin = res;
     });
   }
 
@@ -35,9 +40,15 @@ export class AppComponent implements OnInit {
   }
 
   goEdit(): void {
-    const id = this.authService.getUserId();
-    if (id) {
-      this.router.navigate([`/edit/${id}`, { replaceUrl: true }]);
+    this.userId = this.authService.getUserId();
+    if (this.userId) {
+      this.router.navigate([`/edit/${this.userId}`, { replaceUrl: true }]);
+    }
+  }
+
+  goAdmin(): void {
+    if (this.userId) {
+      this.router.navigate([`/panel`, { replaceUrl: true }]);
     }
   }
 }

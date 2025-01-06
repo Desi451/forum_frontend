@@ -42,3 +42,12 @@ export type updateImage = {
   id: number;
   image: string;
 };
+
+export interface CustomJwtPayload {
+  UserID: string;
+  UserLogin: string;
+  UserNickname: string;
+  UserPFP: string;
+  UserRole: string;
+  [key: string]: any;
+}
