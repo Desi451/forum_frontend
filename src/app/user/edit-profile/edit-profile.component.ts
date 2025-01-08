@@ -33,7 +33,6 @@ export class EditProfileComponent implements OnInit {
     this.initializeForms();
     const userId = this.route.snapshot.paramMap.get('id');
     const numericUserId = Number(userId);
-    console.log(numericUserId);
     if (numericUserId) {
       this.userService.get(numericUserId).subscribe({
         next: (data) => {
@@ -53,7 +52,6 @@ export class EditProfileComponent implements OnInit {
 
       this.userService.getUserProfilePicture(numericUserId).subscribe({
         next: (data) => {
-          console.log(data);
           if (data) {
             this.editFormImage.get('photo')?.setValue(data.profilePictureUrl);
           }
