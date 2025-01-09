@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { createSubThread, createThread, thread, ThreadListPagination } from "../../models/thread";
+import { createSubThread, createThread, editThread, thread, ThreadListPagination } from "../../models/thread";
 import { environment } from "../enviroment";
 
 @Injectable({
@@ -58,5 +58,27 @@ export class ThreadService {
 
   subscribeThread(threadId: number): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}thread/subscribe/${threadId}`, null);
+  }
+
+  editThread(threadId: number, edit: editThread): Observable<any> {
+    return this.http.patch<any>(`${environment.apiUrl}thread/edit-thread/${threadId}`, { editThreadDTO: edit });
+  }
+
+  deleteThread(threadId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}thread/delete-thread/${threadId}`);
+  }
+
+  likeDislike(threadId: number, likeDislike: number): Observable<any> {
+    return this.http.patch<any>(`${environment.apiUrl}thread/subscribe/${threadId}`, { likeOrDislike: likeDislike });
+  }
+
+  searchThread(keyWord: string, pageNumber: number, pageSize: number): Observable<ThreadListPagination> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString())
+      .set('keyWord', keyWord);
+
+    return this.http.get<ThreadListPagination>(`${environment.apiUrl}thread/search`, { params });
+
   }
 }

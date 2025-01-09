@@ -10,6 +10,7 @@ import { MaterialModule } from "../core/material.module";
 import { MatIconModule } from "@angular/material/icon";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { CommonModule } from "@angular/common";
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   exports: [
@@ -28,7 +29,8 @@ import { CommonModule } from "@angular/common";
   declarations: [
     LoginComponent,
     RegistrationComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    UserProfileComponent
   ]
 })
 export class UserModule { }

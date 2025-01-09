@@ -41,4 +41,8 @@ export class UserService {
   getUserProfilePicture(id: number): Observable<any> {
     return this.http.get(`${environment.apiUrl}user/${id}/profile-picture`);
   }
+
+  reportUser(userId: number, reason: string): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}admin/report-user/${userId}`, { reason: reason });
+  }
 }

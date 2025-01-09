@@ -1,0 +1,41 @@
+<div class="container centered-container">
+  <mat-card>
+    <mat-card-title>
+      Profile Preview
+      <mat-icon>visibility</mat-icon>
+    </mat-card-title>
+    <mat-card-content>
+      <div class="left">
+        <div class="infoPanel">
+          <div class="infoBox">
+            <span class="infoLabel">Nickname:</span>
+            <span class="infoValue">{{ userData?.nickname }}</span>
+          </div>
+          <div class="infoBox">
+            <span class="infoLabel">Email:</span>
+            <span class="infoValue">{{ userData?.mail }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <div id="profileImageContainer">
+          <div class="fileUploadContainer">
+            <ng-container *ngIf="userData?.profilePicture">
+              <img [src]="userData?.profilePicture" />
+            </ng-container>
+            <div
+              *ngIf="!userData?.profilePicture"
+              fxLayout="column"
+              fxLayoutAlign="center center"
+              fxLayoutGap="10px"
+            >
+              <mat-icon style="opacity: 60%">account_circle</mat-icon>
+              <p>No Profile Image</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

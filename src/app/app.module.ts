@@ -13,10 +13,13 @@ import { ThreadsModule } from './threads/threads.module';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AdminModule } from './admin/admin.module';
+import { AcceptFormComponent } from './shared/accept-form/accept-form.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AcceptFormComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { AdminModule } from './admin/admin.module';
     UserModule,
     ThreadsModule,
     MatPaginatorModule,
-    AdminModule
+    AdminModule,
+    MatCardModule
   ],
   providers: [
     provideClientHydration(),

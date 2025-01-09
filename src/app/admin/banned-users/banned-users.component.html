@@ -1,0 +1,52 @@
+<table
+  mat-table
+  [dataSource]="bannedUsers.data"
+  class="mat-elevation-z8 demo-table"
+>
+  <ng-container matColumnDef="bannedUserNickname">
+    <th mat-header-cell *matHeaderCellDef>Nickname</th>
+    <td mat-cell *matCellDef="let element">{{ element.bannedUserNickname }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="baneedUserEMail">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let element">{{ element.baneedUserEMail }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="reason">
+    <th mat-header-cell *matHeaderCellDef>Reason</th>
+    <td mat-cell *matCellDef="let element">{{ element.reason }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateOfBan">
+    <th mat-header-cell *matHeaderCellDef>Date of Ban</th>
+    <td mat-cell *matCellDef="let element">{{ element.dateOfBan | date }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="bannedUntil">
+    <th mat-header-cell *matHeaderCellDef>Banned Until</th>
+    <td mat-cell *matCellDef="let element">{{ element.bannedUntil | date }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="adminNickname">
+    <th mat-header-cell *matHeaderCellDef>Admin Nickname</th>
+    <td mat-cell *matCellDef="let element">{{ element.adminNickname }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element"><mat-icon>lock_open</mat-icon></td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  [length]="bannedUsers.totalCount"
+  [pageSize]="bannedUsers.pageSize"
+  [pageSizeOptions]="[2, 5, 10, 15]"
+  (page)="handlePageEvent($event)"
+  aria-label="Select page"
+>
+</mat-paginator>

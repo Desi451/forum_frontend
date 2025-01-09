@@ -11,6 +11,13 @@ export type thread = {
   subthreads: thread[]
 }
 
+export type editThread = {
+  title: string;
+  descrption: string;
+  tags: string[];
+  images: string[];
+}
+
 export type threadDetail = {
   thread: thread;
   ogThreadId: number;

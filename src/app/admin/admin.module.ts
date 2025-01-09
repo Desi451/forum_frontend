@@ -9,31 +9,35 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminPanelComponent } from "./admin-panel/admin-panel.component";
-import { BanUserModalComponent } from "./ban-user-modal/ban-user-modal.component";
-import { RemoveThreadModalComponent } from "./remove-thread-modal/remove-thread-modal.component";
 import { AdminRoutingModule } from "./admin-routing.module";
+import { MatTabsModule } from '@angular/material/tabs';
+import { BannedUsersComponent } from "./banned-users/banned-users.component";
+import { ReportedUsersComponent } from "./reported-users/reported-users.component";
+import { MatTableModule } from '@angular/material/table'
 
 @NgModule({
-    exports: [
+  exports: [
 
-    ],
-    imports: [
-        ReactiveFormsModule,
-        FormsModule,
-        MatCardModule,
-        MatButtonModule,
-        CommonModule,
-        MaterialModule,
-        MatIconModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        MatSlideToggleModule,
-        AdminRoutingModule
-    ],
-    declarations: [
-        AdminPanelComponent,
-        BanUserModalComponent,
-        RemoveThreadModalComponent
-    ]
+  ],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    CommonModule,
+    MaterialModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatSlideToggleModule,
+    AdminRoutingModule,
+    MatTabsModule,
+    MatTableModule
+  ],
+  declarations: [
+    AdminPanelComponent,
+    BannedUsersComponent,
+    ReportedUsersComponent
+  ]
 })
 export class AdminModule { }
