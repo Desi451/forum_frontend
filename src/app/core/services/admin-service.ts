@@ -34,7 +34,7 @@ export class AdminService {
   }
 
   unbanUser(userId: number): Observable<any> {
-    return this.http.patch<any>(`${environment.apiUrl}admin/delete-report/${userId}`, {});
+    return this.http.patch<any>(`${environment.apiUrl}admin/unban-user/${userId}`, null);
   }
 
   banUser(userId: number, reason: BanReason): Observable<any> {

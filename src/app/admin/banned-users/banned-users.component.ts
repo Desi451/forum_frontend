@@ -43,7 +43,7 @@ export class BannedUsersComponent implements OnInit {
   }
 
   private loadData() {
-    this.adminService.getBannedUsers(this.bannedUsers.currentPage, this.bannedUsers.pageSize).subscribe({
+    this.adminService.getBannedUsers(this.bannedUsers.pageSize, this.bannedUsers.currentPage).subscribe({
       next: (data) => {
         this.bannedUsers.data = data;
       },
@@ -51,5 +51,16 @@ export class BannedUsersComponent implements OnInit {
         console.error('load failed', err);
       }
     });
+  }
+
+  public unbanUser(userId: number) {
+    this.adminService.unbanUser(userId).subscribe({
+      next: () => {
+        this.loadData();
+      },
+      error: (err) => {
+        console.error('unban failed', err);
+      }
+    })
   }
 }
