@@ -11,6 +11,11 @@ import { MatIconModule } from "@angular/material/icon";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { CommonModule } from "@angular/common";
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserThreadsComponent } from './user-threads/user-threads.component';
+import { UserSubscribedThreadsComponent } from './user-subscribed-threads/user-subscribed-threads.component';
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   exports: [
@@ -24,13 +29,18 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatCardModule,
     MatButtonModule,
     MaterialModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule,
+    MatSlideToggleModule,
+    MatTabsModule
   ],
   declarations: [
     LoginComponent,
     RegistrationComponent,
     EditProfileComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserThreadsComponent,
+    UserSubscribedThreadsComponent
   ]
 })
 export class UserModule { }

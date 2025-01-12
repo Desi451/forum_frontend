@@ -8,7 +8,8 @@ export type thread = {
   tags: string[];
   image: string;
   images: string[];
-  subthreads: thread[]
+  subthreads: thread[];
+  subscribe: boolean;
 }
 
 export type editThread = {

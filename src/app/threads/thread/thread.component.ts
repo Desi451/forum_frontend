@@ -24,7 +24,8 @@ export class ThreadComponent implements OnInit {
     description: '',
     tags: [],
     images: [],
-    subthreads: []
+    subthreads: [],
+    subscribe: false
   };
 
   defaultImage: string = 'assets/defaultThread.png';

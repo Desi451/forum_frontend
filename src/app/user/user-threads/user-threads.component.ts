@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ThreadListPagination } from '../../models/thread';
 import { ThreadService } from '../../core/services/thread-service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-list-threads',
-  templateUrl: './list-threads.component.html',
-  styleUrl: './list-threads.component.scss'
+  selector: 'app-user-threads',
+  templateUrl: './user-threads.component.html',
+  styleUrl: './user-threads.component.scss'
 })
-export class ListThreadsComponent implements OnInit {
+export class UserThreadsComponent implements OnInit {
   public data: ThreadListPagination = {
     data: [],
     totalCount: 0,
@@ -21,7 +21,8 @@ export class ListThreadsComponent implements OnInit {
 
   constructor(
     private threadService: ThreadService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -42,10 +43,11 @@ export class ListThreadsComponent implements OnInit {
   }
 
   loadData(): void {
-    this.threadService.getThreads(this.data.currentPage, this.data.pageSize).subscribe({
+    const userId = this.route.snapshot.paramMap.get('id');
+    const numericUserId = Number(userId);
+    this.threadService.getUserThreads(numericUserId, this.data.currentPage, this.data.pageSize).subscribe({
       next: (data) => {
         this.data = data;
-        console.log(data);
       },
       error: (err) => {
         console.error('load failed', err);
@@ -53,13 +55,14 @@ export class ListThreadsComponent implements OnInit {
     });
   }
 
-  onChange(threadId: number) {
-    this.threadService.subscribeThread(threadId).subscribe({
-      next: (res) => {
-        console.log(res);
+  public RemoveThread(id: number) {
+    this.threadService.deleteThread(id).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.loadData();
       },
       error: (err) => {
-        console.error('subscribe failed', err);
+        console.error('delete failed', err);
       }
     });
   }

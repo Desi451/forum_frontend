@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   goEdit(): void {
     this.userId = this.authService.getUserId();
     if (this.userId) {
-      this.router.navigate([`/thread/${this.userId}`]);
+      this.router.navigate([`/edit/${this.userId}`]);
     }
   }
 
