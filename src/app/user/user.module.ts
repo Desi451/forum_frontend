@@ -16,6 +16,8 @@ import { UserSubscribedThreadsComponent } from './user-subscribed-threads/user-s
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatInputModule } from "@angular/material/input";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   exports: [
@@ -32,7 +34,9 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatIconModule,
     MatPaginatorModule,
     MatSlideToggleModule,
-    MatTabsModule
+    MatInputModule,
+    MatTabsModule,
+    MatSnackBarModule
   ],
   declarations: [
     LoginComponent,

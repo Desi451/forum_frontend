@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   register(newUser: addUser): Observable<any> {
-    return this.http.post(`${environment.apiUrl}auth/register`, newUser);
+    return this.http.post<any>(`${environment.apiUrl}auth/register`, newUser);
   }
 
   refresh(): Observable<any> {

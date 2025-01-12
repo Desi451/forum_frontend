@@ -1,9 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { AuthService } from "../../core/auth/auth-service";
 import { loginUser } from "../../models/user";
 import { Router } from "@angular/router";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.initForm();
   }
@@ -41,12 +43,16 @@ export class LoginComponent {
     this.authService.login(data).subscribe({
       next: (response) => {
         this.authService.saveToken(response.token);
-        console.log('Logged in!');
-        this.router.navigate([`/`], { replaceUrl: true });
+        this.router.navigate([`/`]);
+        this.openSnackBar('Logged in!', "Ok")
       },
       error: (err) => {
-        console.error('Login failed', err);
+        this.openSnackBar(err.error[0].message, "Ok")
       }
     });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 }
