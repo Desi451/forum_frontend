@@ -52,6 +52,14 @@ export class ThreadService {
     return this.http.get<ThreadListPagination>(`${environment.apiUrl}thread/threads`, { params });
   }
 
+  getDislikedThreads(pageNumber: number, pageSize: number): Observable<ThreadListPagination> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<ThreadListPagination>(`${environment.apiUrl}thread/most-disliked-threads`, { params });
+  }
+
   getThread(id: number): Observable<thread> {
     return this.http.get<thread>(`${environment.apiUrl}thread/thread/${id}`,);
   }

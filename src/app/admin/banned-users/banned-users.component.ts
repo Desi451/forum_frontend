@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AdminService } from '../../core/services/admin-service';
 import { BannedUserListPagination } from '../../models/admin';
 import { PageEvent } from '@angular/material/paginator';
+import { AcceptFormComponent } from '../../shared/accept-form/accept-form.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-banned-users',
@@ -27,7 +30,9 @@ export class BannedUsersComponent implements OnInit {
     'actions'
   ];
 
-  constructor(private adminService: AdminService) {
+  constructor(private adminService: AdminService,
+    public dialog: MatDialog
+  ) {
 
   }
 
@@ -48,19 +53,26 @@ export class BannedUsersComponent implements OnInit {
         this.bannedUsers.data = data;
       },
       error: (err) => {
+        this.bannedUsers.data = [];
         console.error('load failed', err);
       }
     });
   }
 
   public unbanUser(userId: number) {
-    this.adminService.unbanUser(userId).subscribe({
-      next: () => {
-        this.loadData();
-      },
-      error: (err) => {
-        console.error('unban failed', err);
-      }
-    })
+    this.dialog.open(AcceptFormComponent, {})
+      .afterClosed()
+      .pipe(
+        filter(result => result === true),
+        switchMap(() => this.adminService.unbanUser(userId))
+      )
+      .subscribe({
+        next: () => {
+          this.loadData();
+        },
+        error: () => {
+          console.error('unban failed');
+        }
+      });
   }
 }

@@ -30,7 +30,7 @@ export class ListThreadsComponent implements OnInit {
 
   onDetails(threadId: number): void {
     if (threadId) {
-      this.router.navigate([`/thread/${threadId}`]);
+      this.router.navigateByUrl('/thread/' + threadId);
     }
   }
 

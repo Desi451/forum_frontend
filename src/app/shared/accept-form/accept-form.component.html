@@ -6,7 +6,9 @@
     </mat-card-title>
     <mat-card-content>
       <div class="confirmation-content">
-        <p>Are you sure you want to proceed with this action?</p>
+        <p style="color: white">
+          Are you sure you want to proceed with this action?
+        </p>
         <div class="button-group">
           <button mat-raised-button color="primary" (click)="close(true)">
             Yes
@@ -14,7 +16,6 @@
           <button mat-raised-button color="warn" (click)="close(false)">
             No
           </button>
-          <button mat-raised-button (click)="close(false)">Close</button>
         </div>
       </div>
     </mat-card-content>

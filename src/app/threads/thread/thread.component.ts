@@ -18,7 +18,7 @@ export class ThreadComponent implements OnInit {
     threadId: 0,
     image: '',
     title: '',
-    authorNickname: '',
+    author: '',
     authorId: 0,
     creationDate: undefined,
     description: '',

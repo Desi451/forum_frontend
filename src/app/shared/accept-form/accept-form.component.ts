@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-accept-form',
@@ -7,7 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AcceptFormComponent {
 
+  constructor(private dialogRef: MatDialogRef<AcceptFormComponent>) { }
+
   close(res: boolean) {
-    this.close(res);
+    this.dialogRef.close(res);
   }
 }

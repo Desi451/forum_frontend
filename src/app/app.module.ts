@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AdminModule } from './admin/admin.module';
 import { AcceptFormComponent } from './shared/accept-form/accept-form.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatCardModule } from '@angular/material/card';
     ThreadsModule,
     MatPaginatorModule,
     AdminModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [
     provideClientHydration(),

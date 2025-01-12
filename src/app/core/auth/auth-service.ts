@@ -34,7 +34,6 @@ export class AuthService {
 
   refresh(): Observable<any> {
     const token = this.getToken();
-    console.log("Token: " + token);
     return this.http.get(`${environment.apiUrl}auth/refresh-token`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`

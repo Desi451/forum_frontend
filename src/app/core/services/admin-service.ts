@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { createSubThread, createThread, thread, ThreadListPagination } from "../../models/thread";
 import { environment } from "../enviroment";
 import { BannedUser, BanReason, ReportedUser } from "../../models/admin";
 
@@ -33,12 +32,11 @@ export class AdminService {
     return this.http.delete<void>(`${environment.apiUrl}admin/delete-report/${reportId}`);
   }
 
-  unbanUser(userId: number): Observable<any> {
-    return this.http.patch<any>(`${environment.apiUrl}admin/unban-user/${userId}`, null);
+  unbanUser(userId: number): Observable<string> {
+    return this.http.patch(`${environment.apiUrl}admin/unban-user/${userId}`, null, { responseType: 'text' });
   }
 
   banUser(userId: number, reason: BanReason): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}admin/ban-user/${userId}`, { banData: reason });
   }
-
 }

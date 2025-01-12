@@ -2,7 +2,7 @@ export type thread = {
   threadId: number;
   title: string;
   authorId: number;
-  authorNickname: string;
+  author: string;
   description: string;
   creationDate?: Date;
   tags: string[];
