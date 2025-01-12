@@ -59,7 +59,7 @@ export class DislikedThreadsComponent implements OnInit {
   }
 
   public loadThread(id: number) {
-    this.router.navigateByUrl('/thread/' + id);
+    this.router.navigateByUrl('threads/' + id);
   }
 
   public RemoveThread(id: number) {

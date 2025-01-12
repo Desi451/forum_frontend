@@ -1,0 +1,45 @@
+<div class="container centered-container">
+  <mat-card>
+    <mat-card-title>
+      Ban User
+      <mat-icon>block</mat-icon>
+    </mat-card-title>
+    <mat-card-content>
+      <div class="ban-content">
+        <p style="color: white">
+          Please provide the reason for banning the user and select the ban
+          expiration date.
+        </p>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Reason for Ban</mat-label>
+          <textarea
+            matInput
+            placeholder="Enter the reason"
+            [(ngModel)]="banReason"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Ban Expiration Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="banExpirationDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div class="button-group">
+          <button mat-raised-button color="primary" (click)="confirmBan()">
+            Ban User
+          </button>
+          <button mat-raised-button color="warn" (click)="close()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

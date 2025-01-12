@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { PageForbiddenComponent } from './shared/page-forbidden/page-forbidden.component';
 import { HomeComponent } from './shared/home/home.component';
+import { PrivacyComponent } from './shared/privacy/privacy.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) // Lazy loading
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent
   },
   {
     path: '**',

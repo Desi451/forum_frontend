@@ -11,7 +11,7 @@ const routes: Routes = [
     component: ListThreadsComponent
   },
   {
-    path: 'thread/:id',
+    path: ':id',
     component: ThreadComponent
   },
   {
@@ -19,7 +19,7 @@ const routes: Routes = [
     component: ThreadFormComponent
   },
   {
-    path: 'thread/edit/:id',
+    path: 'edit/:id',
     component: ThreadFormComponent
   }
 ];

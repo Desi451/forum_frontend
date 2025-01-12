@@ -38,6 +38,14 @@
             >
               Remove
             </button>
+            <button
+              mat-raised-button
+              color="info"
+              class="details-button"
+              [routerLink]="['/threads/edit', thread.threadId]"
+            >
+              Edit
+            </button>
           </div>
         </div>
       </mat-card-content>

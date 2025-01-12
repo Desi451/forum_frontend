@@ -15,8 +15,10 @@ export class SnackBarService {
   }
 
   handleErrors(errors: any[], action: string = 'Ok') {
-    errors.forEach((error) => {
-      this.openSnackBar(error.message, action);
-    });
+    if (errors.length > 0) {
+      errors.forEach((error) => {
+        this.openSnackBar(error.message, action);
+      });
+    }
   }
 }

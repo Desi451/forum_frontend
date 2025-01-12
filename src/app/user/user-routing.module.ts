@@ -5,6 +5,7 @@ import { EditProfileComponent } from "./edit-profile/edit-profile.component";
 import { LoginComponent } from "./login/login.component";
 import { RegistrationComponent } from "./registration/registration.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
+import { PrivacyComponent } from "../shared/privacy/privacy.component";
 
 const routes: Routes = [
   {

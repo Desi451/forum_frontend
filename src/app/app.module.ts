@@ -19,6 +19,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { PageForbiddenComponent } from './shared/page-forbidden/page-forbidden.component';
 import { HomeComponent } from './shared/home/home.component';
+import { PrivacyComponent } from './shared/privacy/privacy.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,7 @@ import { HomeComponent } from './shared/home/home.component';
     PageNotFoundComponent,
     PageForbiddenComponent,
     HomeComponent,
+    PrivacyComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,9 @@ import { HomeComponent } from './shared/home/home.component';
     MatPaginatorModule,
     AdminModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatNativeDateModule,
+    MatMenuModule
   ],
   providers: [
     provideClientHydration(),

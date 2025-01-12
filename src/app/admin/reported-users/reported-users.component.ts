@@ -3,6 +3,10 @@ import { AdminService } from '../../core/services/admin-service';
 import { ReportedUserListPagination } from '../../models/admin';
 import { PageEvent } from '@angular/material/paginator';
 import { SnackBarService } from '../../core/services/snackbar-service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { BanModalComponent } from '../ban-modal/ban-modal.component';
+import { filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-reported-users',
@@ -29,7 +33,9 @@ export class ReportedUsersComponent implements OnInit {
   ];
 
   constructor(private adminService: AdminService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private router: Router,
+    public dialog: MatDialog
   ) {
 
   }
@@ -54,5 +60,13 @@ export class ReportedUsersComponent implements OnInit {
         this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
+  }
+
+  userProfile(id: number) {
+    this.router.navigate([`user/${id}`]);
+  }
+
+  banUser(id: number) {
+    this.dialog.open(BanModalComponent, { data: id });
   }
 }

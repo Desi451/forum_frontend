@@ -40,10 +40,18 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button matTooltip="user profile">
+      <button
+        mat-icon-button
+        matTooltip="user profile"
+        (click)="userProfile(element.reportedUserId)"
+      >
         <mat-icon>remove_red_eye</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="ban user">
+      <button
+        mat-icon-button
+        matTooltip="ban user"
+        (click)="banUser(element.reportedUserId)"
+      >
         <mat-icon>lock</mat-icon>
       </button>
     </td>

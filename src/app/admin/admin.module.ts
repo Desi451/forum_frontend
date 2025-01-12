@@ -16,6 +16,8 @@ import { ReportedUsersComponent } from "./reported-users/reported-users.componen
 import { MatTableModule } from '@angular/material/table'
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { DislikedThreadsComponent } from './disliked-threads/disliked-threads.component';
+import { BanModalComponent } from './ban-modal/ban-modal.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   exports: [
@@ -36,13 +38,15 @@ import { DislikedThreadsComponent } from './disliked-threads/disliked-threads.co
     MatTabsModule,
     MatTableModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDatepickerModule
   ],
   declarations: [
     AdminPanelComponent,
     BannedUsersComponent,
     ReportedUsersComponent,
     DislikedThreadsComponent,
+    BanModalComponent,
   ]
 })
 export class AdminModule { }

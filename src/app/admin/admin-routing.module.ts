@@ -4,22 +4,14 @@ import { AdminPanelComponent } from "./admin-panel/admin-panel.component";
 
 
 const routes: Routes = [
-    {
-        path: 'panel',
-        component: AdminPanelComponent
-    },
-    //   {
-    //     path: 'thread/:id',
-    //     component: ThreadComponent
-    //   },
-    //   {
-    //     path: 'thread/new/add',
-    //     component: ThreadFormComponent
-    //   }
+  {
+    path: 'panel',
+    component: AdminPanelComponent
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class AdminRoutingModule { }

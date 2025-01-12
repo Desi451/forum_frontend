@@ -32,7 +32,7 @@ export class UserSubscribedThreadsComponent implements OnInit {
 
   onDetails(threadId: number): void {
     if (threadId) {
-      this.router.navigateByUrl('/thread/' + threadId);
+      this.router.navigateByUrl('threads/' + threadId);
     }
   }
 
