@@ -92,8 +92,8 @@ export class ThreadService {
     return this.http.delete<any>(`${environment.apiUrl}thread/delete-thread/${threadId}`);
   }
 
-  likeDislike(threadId: number, likeDislike: number): Observable<any> {
-    return this.http.patch<any>(`${environment.apiUrl}thread/subscribe/${threadId}`, { likeOrDislike: likeDislike });
+  likeDislike(threadId: number, likeOrDislike: number): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}thread/like-dislike/${threadId}`, { likeOrDislike: likeOrDislike });
   }
 
   searchThread(keyWord: string, pageNumber: number, pageSize: number): Observable<ThreadListPagination> {

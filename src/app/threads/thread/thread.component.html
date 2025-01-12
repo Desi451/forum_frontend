@@ -46,14 +46,33 @@
           </mat-card-actions>
         </mat-card>
       </div>
-      <button
-        mat-raised-button
-        class="button-left"
-        color="primary"
-        (click)="openForm(data.threadId)"
-      >
-        Comment
-      </button>
+      <div>
+        <button
+          mat-raised-button
+          class="button-left"
+          color="primary"
+          (click)="openForm(data.threadId)"
+        >
+          Comment
+        </button>
+        <button
+          *ngIf="!parentThread"
+          mat-mini-fab
+          style="margin-right: 5px"
+          aria-label="Example icon button with a home icon"
+          (click)="likeOrDislike(data.threadId, true)"
+        >
+          <mat-icon>thumb_up</mat-icon>
+        </button>
+        <button
+          *ngIf="!parentThread"
+          mat-mini-fab
+          aria-label="Example icon button with a home icon"
+          (click)="likeOrDislike(data.threadId, false)"
+        >
+          <mat-icon>thumb_down</mat-icon>
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

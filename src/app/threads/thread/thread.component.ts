@@ -13,7 +13,7 @@ import { thread } from '../../models/thread';
 export class ThreadComponent implements OnInit {
   @Input() thread: any;
   @Input() parentThread: boolean = false;
-  threadId: number | undefined;
+  threadId: number;
   data: thread = {
     threadId: 0,
     image: '',
@@ -34,7 +34,7 @@ export class ThreadComponent implements OnInit {
     private route: ActivatedRoute,
     private threadService: ThreadService,
     private dialog: MatDialog
-  ) { }
+  ) { this.threadId = Number(this.route.snapshot.paramMap.get('id')); }
 
   ngOnInit(): void {
     this.loadData();
@@ -65,6 +65,26 @@ export class ThreadComponent implements OnInit {
         console.log('Thread data submitted:', result);
       }
       this.loadData();
+    });
+  }
+
+  likeOrDislike(id: number, like: boolean) {
+
+    let num;
+    if (like) {
+      num = 1
+    }
+    else {
+      num = -1
+    }
+    this.threadService.likeDislike(this.threadId, num).subscribe({
+      next: (data) => {
+        this.data = data;
+        console.log(data);
+      },
+      error: (err) => {
+        console.error('load failed', err);
+      }
     });
   }
 
