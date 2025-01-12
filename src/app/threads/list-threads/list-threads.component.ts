@@ -3,6 +3,7 @@ import { ThreadListPagination } from '../../models/thread';
 import { ThreadService } from '../../core/services/thread-service';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { SnackBarService } from '../../core/services/snackbar-service';
 
 @Component({
   selector: 'app-list-threads',
@@ -21,7 +22,8 @@ export class ListThreadsComponent implements OnInit {
 
   constructor(
     private threadService: ThreadService,
-    private router: Router
+    private router: Router,
+    private snackBarService: SnackBarService
   ) { }
 
   ngOnInit(): void {
@@ -45,10 +47,9 @@ export class ListThreadsComponent implements OnInit {
     this.threadService.getThreads(this.data.currentPage, this.data.pageSize).subscribe({
       next: (data) => {
         this.data = data;
-        console.log(data);
       },
       error: (err) => {
-        console.error('load failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }
@@ -56,10 +57,10 @@ export class ListThreadsComponent implements OnInit {
   onChange(threadId: number) {
     this.threadService.subscribeThread(threadId).subscribe({
       next: (res) => {
-        console.log(res);
+        this.snackBarService.openSnackBar('Subscribed!', 'Ok');
       },
       error: (err) => {
-        console.error('subscribe failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }

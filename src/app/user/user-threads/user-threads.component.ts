@@ -3,6 +3,7 @@ import { ThreadListPagination } from '../../models/thread';
 import { ThreadService } from '../../core/services/thread-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
+import { SnackBarService } from '../../core/services/snackbar-service';
 
 @Component({
   selector: 'app-user-threads',
@@ -22,7 +23,8 @@ export class UserThreadsComponent implements OnInit {
   constructor(
     private threadService: ThreadService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBarService: SnackBarService
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +52,7 @@ export class UserThreadsComponent implements OnInit {
         this.data = data;
       },
       error: (err) => {
-        console.error('load failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }
@@ -58,11 +60,11 @@ export class UserThreadsComponent implements OnInit {
   public RemoveThread(id: number) {
     this.threadService.deleteThread(id).subscribe({
       next: (response) => {
-        console.log(response);
+        this.snackBarService.openSnackBar('Thread deleted!', 'Ok');
         this.loadData();
       },
       error: (err) => {
-        console.error('delete failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }

@@ -4,6 +4,7 @@ import { ThreadService } from '../../core/services/thread-service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { SnackBarService } from '../../core/services/snackbar-service';
 
 @Component({
   selector: 'app-disliked-threads',
@@ -30,7 +31,8 @@ export class DislikedThreadsComponent implements OnInit {
   constructor(
     private threadService: ThreadService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBarService: SnackBarService
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class DislikedThreadsComponent implements OnInit {
       },
       error: (err) => {
         this.threads.data = [];
-        console.error('load failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }
@@ -63,11 +65,11 @@ export class DislikedThreadsComponent implements OnInit {
   public RemoveThread(id: number) {
     this.threadService.deleteThread(id).subscribe({
       next: (response) => {
-        console.log(response);
         this.loadData();
+        this.snackBarService.openSnackBar('Thread Removed!', 'Ok');
       },
       error: (err) => {
-        console.error('delete failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }

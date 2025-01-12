@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ThreadService } from '../../core/services/thread-service';
 import { AuthService } from '../../core/auth/auth-service';
 import { createSubThread } from '../../models/thread';
+import { SnackBarService } from '../../core/services/snackbar-service';
 
 
 @Component({
@@ -21,19 +22,17 @@ export class CommentFormComponent {
     private threadService: ThreadService,
     public dialogRef: MatDialogRef<CommentFormComponent>,
     private authService: AuthService,
+    private snackBarService: SnackBarService,
     @Inject(MAT_DIALOG_DATA) public data: { parentId: number },
   ) {
-    console.log(data);
     this.threadForm = this.fb.group({
       description: ['', Validators.required],
     });
   }
 
   onSubmit(): void {
-    console.log(this.data.parentId);
     const id = this.authService.getUserId();
     if (this.threadForm.valid && id) {
-      console.log('Form data:', this.threadForm.value);
       const thread: createSubThread = {
         description: this.threadForm.value.description,
         images: this.selectedFiles,
@@ -43,10 +42,10 @@ export class CommentFormComponent {
 
       this.threadService.addSub(thread).subscribe({
         next: (response) => {
-          console.log('comment added');
+          this.snackBarService.openSnackBar('Commet added!', 'Ok');
         },
         error: (err) => {
-          console.error('error while adding comment', err);
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
 
@@ -57,7 +56,6 @@ export class CommentFormComponent {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       this.selectedFiles = Array.from(input.files);
-      console.log('Selected files:', this.selectedFiles);
     }
   }
 

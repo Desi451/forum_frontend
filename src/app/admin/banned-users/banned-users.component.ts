@@ -5,6 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { AcceptFormComponent } from '../../shared/accept-form/accept-form.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { filter, switchMap } from 'rxjs';
+import { SnackBarService } from '../../core/services/snackbar-service';
 
 @Component({
   selector: 'app-banned-users',
@@ -31,7 +32,8 @@ export class BannedUsersComponent implements OnInit {
   ];
 
   constructor(private adminService: AdminService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBarService: SnackBarService
   ) {
 
   }
@@ -54,7 +56,7 @@ export class BannedUsersComponent implements OnInit {
       },
       error: (err) => {
         this.bannedUsers.data = [];
-        console.error('load failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }
@@ -69,9 +71,10 @@ export class BannedUsersComponent implements OnInit {
       .subscribe({
         next: () => {
           this.loadData();
+          this.snackBarService.openSnackBar('User unbanned!', 'Ok');
         },
-        error: () => {
-          console.error('unban failed');
+        error: (err) => {
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
   }

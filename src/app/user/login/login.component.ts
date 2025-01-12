@@ -5,6 +5,7 @@ import { AuthService } from "../../core/auth/auth-service";
 import { loginUser } from "../../models/user";
 import { Router } from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarService } from "../../core/services/snackbar-service";
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private _snackBarService: SnackBarService,
     private _snackBar: MatSnackBar
   ) {
     this.initForm();
@@ -44,15 +46,11 @@ export class LoginComponent {
       next: (response) => {
         this.authService.saveToken(response.token);
         this.router.navigate([`/`]);
-        this.openSnackBar('Logged in!', "Ok")
+        this._snackBarService.openSnackBar('Logged in!', 'Ok');;
       },
       error: (err) => {
-        this.openSnackBar(err.error[0].message, "Ok")
+        this._snackBarService.handleErrors(err.error, 'Ok');
       }
     });
-  }
-
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
   }
 }

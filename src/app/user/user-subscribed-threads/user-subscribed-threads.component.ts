@@ -3,6 +3,7 @@ import { ThreadListPagination } from '../../models/thread';
 import { ThreadService } from '../../core/services/thread-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
+import { SnackBarService } from '../../core/services/snackbar-service';
 
 @Component({
   selector: 'app-user-subscribed-threads',
@@ -22,6 +23,7 @@ export class UserSubscribedThreadsComponent implements OnInit {
   constructor(
     private threadService: ThreadService,
     private router: Router,
+    private snackBarService: SnackBarService
   ) { }
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class UserSubscribedThreadsComponent implements OnInit {
         this.data = data;
       },
       error: (err) => {
-        console.error('load failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }
@@ -55,11 +57,11 @@ export class UserSubscribedThreadsComponent implements OnInit {
   onChange(threadId: number) {
     this.threadService.subscribeThread(threadId).subscribe({
       next: (res) => {
-        console.log(res);
         this.loadData();
+        this.snackBarService.openSnackBar('Thread subscribed!', 'Ok');
       },
       error: (err) => {
-        console.error('subscribe failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }

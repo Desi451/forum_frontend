@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, UntypedFormBuilder, Validators } from "@angular
 import { UserService } from "../../core/services/user-service";
 import { updateMail, updateNickname, updatePassword, user } from "../../models/user";
 import { ActivatedRoute } from "@angular/router";
+import { SnackBarService } from "../../core/services/snackbar-service";
 
 @Component({
   selector: 'app-edit-profile',
@@ -26,7 +27,8 @@ export class EditProfileComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private imb: UntypedFormBuilder,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBarService: SnackBarService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +48,7 @@ export class EditProfileComponent implements OnInit {
           })
         },
         error: (err) => {
-          console.error('load failed', err);
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
 
@@ -55,10 +57,9 @@ export class EditProfileComponent implements OnInit {
           if (data) {
             this.editFormImage.get('photo')?.setValue(data.profilePictureUrl);
           }
-
         },
         error: (err) => {
-          console.error('load of image failed', err);
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
     }
@@ -98,10 +99,10 @@ export class EditProfileComponent implements OnInit {
 
       this.userService.updateNickname(data).subscribe({
         next: () => {
-          console.log('Nickname changed!');
+          this.snackBarService.openSnackBar('Nickname changed!', 'Ok');
         },
         error: (err) => {
-          console.error('update failed', err);
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
     }
@@ -129,10 +130,10 @@ export class EditProfileComponent implements OnInit {
       }
       this.userService.updatePassword(data).subscribe({
         next: () => {
-          console.log('password changed!');
+          this.snackBarService.openSnackBar('Password changed!', 'Ok');
         },
         error: (err) => {
-          console.error('update failed', err);
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
     }
@@ -142,13 +143,12 @@ export class EditProfileComponent implements OnInit {
         newEMail: this.mailForm.value.email,
         password: this.conPasswordForm.value.conPassword
       }
-      console.log(dataMail);
       this.userService.updateMail(dataMail).subscribe({
         next: (response) => {
-          console.log('mail changed!');
+          this.snackBarService.openSnackBar('Mail Changed!', 'Ok');
         },
         error: (err) => {
-          console.error('update failed', err);
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
     }
@@ -165,10 +165,10 @@ export class EditProfileComponent implements OnInit {
         if (this.userData && eventTarget?.files?.[0]) {
           this.userService.updatePfp(this.userData.id, eventTarget.files[0]).subscribe({
             next: (response) => {
-              console.log('image changed!');
+              this.snackBarService.openSnackBar('Image Changed!', 'Ok');
             },
             error: (err) => {
-              console.error('update failed', err);
+              this.snackBarService.handleErrors(err.error, 'Ok');
             }
           })
         }
@@ -182,10 +182,10 @@ export class EditProfileComponent implements OnInit {
     if (this.userData) {
       this.userService.deletePfp(this.userData.id).subscribe({
         next: (response) => {
-          console.log(response);
+          this.snackBarService.openSnackBar('Image Removed!', 'Ok');
         },
         error: (err) => {
-          console.error('update failed', err);
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       })
     }

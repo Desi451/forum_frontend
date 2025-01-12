@@ -4,6 +4,7 @@ import { ThreadService } from '../../core/services/thread-service';
 import { CommentFormComponent } from '../../shared/comment-form/comment-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { thread } from '../../models/thread';
+import { SnackBarService } from '../../core/services/snackbar-service';
 
 @Component({
   selector: 'app-thread',
@@ -33,7 +34,8 @@ export class ThreadComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private threadService: ThreadService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBarService: SnackBarService
   ) { this.threadId = Number(this.route.snapshot.paramMap.get('id')); }
 
   ngOnInit(): void {
@@ -62,7 +64,7 @@ export class ThreadComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('Thread data submitted:', result);
+        this.snackBarService.openSnackBar('Sumbitted', 'Ok');
       }
       this.loadData();
     });
@@ -80,10 +82,10 @@ export class ThreadComponent implements OnInit {
     this.threadService.likeDislike(this.threadId, num).subscribe({
       next: (data) => {
         this.data = data;
-        console.log(data);
+        this.snackBarService.openSnackBar('Sumbitted!', 'Ok');
       },
       error: (err) => {
-        console.error('load failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }
@@ -94,10 +96,9 @@ export class ThreadComponent implements OnInit {
       this.threadService.getThread(this.threadId).subscribe({
         next: (data) => {
           this.data = data;
-          console.log(data);
         },
         error: (err) => {
-          console.error('load failed', err);
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
     } else {

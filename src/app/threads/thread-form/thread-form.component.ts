@@ -4,7 +4,9 @@ import { response } from "express";
 
 import { AuthService } from "../../core/auth/auth-service";
 import { ThreadService } from "../../core/services/thread-service";
-import { createThread } from "../../models/thread";
+import { createThread, thread } from "../../models/thread";
+import { SnackBarService } from "../../core/services/snackbar-service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-thread-form',
@@ -15,25 +17,67 @@ export class ThreadFormComponent implements OnInit {
   threadForm!: FormGroup;
   selectedFiles: File[] = [];
   currentUser: any;
+  editedThread: thread = {
+    threadId: 0,
+    title: '',
+    authorId: 0,
+    author: '',
+    description: '',
+    creationDate: undefined,
+    tags: [],
+    image: '',
+    images: [],
+    subthreads: [],
+    subscribe: false
+  }
 
   constructor(private fb: FormBuilder,
     private threadService: ThreadService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private snackBarService: SnackBarService
   ) { }
 
   ngOnInit(): void {
-    this.threadForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      thread_images: [''],
-      thread_tags: [''],
-    });
+    const userId = this.route.snapshot.paramMap.get('id');
+    const numericUserId = Number(userId);
+
+    if (numericUserId) {
+      this.threadService.getThread(numericUserId).subscribe({
+        next: (data) => {
+          this.editedThread = data;
+          this.threadForm = this.fb.group({
+            title: [this.editedThread.title, Validators.required],
+            description: [this.editedThread.description, Validators.required],
+            thread_images: [this.editedThread.images],
+            thread_tags: [this.editedThread.tags],
+          });
+        },
+        error: (err) => {
+
+          this.snackBarService.handleErrors(err.error, 'Ok');
+        }
+      })
+    }
+    else {
+      this.threadForm = this.fb.group({
+        title: ['', Validators.required],
+        description: ['', Validators.required],
+        thread_images: [''],
+        thread_tags: [''],
+      });
+    }
   }
 
   onSubmit(): void {
     const id = this.authService.getUserId();
+
+    if (this.threadForm.valid && id && this.editedThread.threadId > 0) {
+      //TODO update thread
+    }
+
     if (this.threadForm.valid && id) {
-      console.log('Form data:', this.threadForm.value);
+
       const thread: createThread = {
         title: this.threadForm.value.title,
         description: this.threadForm.value.description,
@@ -44,13 +88,13 @@ export class ThreadFormComponent implements OnInit {
 
       this.threadService.add(thread).subscribe({
         next: (response) => {
-          console.log('thread added');
+          this.snackBarService.openSnackBar('Thread added!', 'Ok');
         },
         error: (err) => {
-          console.error('error while adding thread', err);
+
+          this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
-
     }
   }
 
@@ -58,7 +102,6 @@ export class ThreadFormComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       this.selectedFiles = Array.from(input.files);
-      console.log('Selected files:', this.selectedFiles);
     }
   }
 

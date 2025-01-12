@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../core/services/admin-service';
 import { ReportedUserListPagination } from '../../models/admin';
 import { PageEvent } from '@angular/material/paginator';
+import { SnackBarService } from '../../core/services/snackbar-service';
 
 @Component({
   selector: 'app-reported-users',
@@ -27,7 +28,9 @@ export class ReportedUsersComponent implements OnInit {
     'actions'
   ];
 
-  constructor(private adminService: AdminService) {
+  constructor(private adminService: AdminService,
+    private snackBarService: SnackBarService
+  ) {
 
   }
 
@@ -48,7 +51,7 @@ export class ReportedUsersComponent implements OnInit {
         this.reportedUsers.data = data;
       },
       error: (err) => {
-        console.error('load failed', err);
+        this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
   }

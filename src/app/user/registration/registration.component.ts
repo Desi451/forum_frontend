@@ -6,6 +6,7 @@ import { AuthService } from "../../core/auth/auth-service";
 import { addUser } from "../../models/user";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { SnackBarService } from "../../core/services/snackbar-service";
 
 @Component({
   selector: 'app-registration',
@@ -19,6 +20,7 @@ export class RegistrationComponent {
     private formBuilder: FormBuilder,
     private _authService: AuthService,
     private _snackBar: MatSnackBar,
+    private _snackBarService: SnackBarService,
     private router: Router
   ) {
     this.initForm();
@@ -46,17 +48,18 @@ export class RegistrationComponent {
         email: this.registerForm.value.email,
         password: this.registerForm.value.password
       };
+
       this._authService.register(res).subscribe(
         {
           next: () => {
             this.router.navigate([`/login`]);
-            this.openSnackBar('Registred!', "Ok")
+            this._snackBarService.openSnackBar('Registered!', 'Ok');
           },
           error: (err) => {
-            this.openSnackBar(err.error[0].message, "Ok")
+            this._snackBarService.handleErrors(err.error);
           }
         }
-      )
+      );
     }
   }
 
