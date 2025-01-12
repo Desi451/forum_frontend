@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   userId: number | undefined;
-  isHomePage: boolean = false;
   private loggedInSubscription: Subscription | undefined;
 
   constructor(private authService: AuthService,
@@ -27,10 +26,6 @@ export class AppComponent implements OnInit {
 
     this.loggedInSubscription = this.authService.isAdmin$.subscribe((res: boolean) => {
       this.isAdmin = res;
-    });
-
-    this.router.events.subscribe(() => {
-      this.isHomePage = this.router.url === '/';
     });
   }
 
@@ -47,11 +42,11 @@ export class AppComponent implements OnInit {
   goEdit(): void {
     this.userId = this.authService.getUserId();
     if (this.userId) {
-      this.router.navigate([`/edit/${this.userId}`]);
+      this.router.navigate([`user/edit/${this.userId}`]);
     }
   }
 
   goAdmin(): void {
-    this.router.navigate([`/panel`]);
+    this.router.navigate([`admin/panel`]);
   }
 }

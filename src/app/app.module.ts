@@ -16,11 +16,17 @@ import { AdminModule } from './admin/admin.module';
 import { AcceptFormComponent } from './shared/accept-form/accept-form.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { PageForbiddenComponent } from './shared/page-forbidden/page-forbidden.component';
+import { HomeComponent } from './shared/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AcceptFormComponent
+    AcceptFormComponent,
+    PageNotFoundComponent,
+    PageForbiddenComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

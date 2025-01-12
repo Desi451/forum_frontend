@@ -7,7 +7,7 @@ import { ThreadFormComponent } from "./thread-form/thread-form.component";
 
 const routes: Routes = [
   {
-    path: 'threads',
+    path: '',
     component: ListThreadsComponent
   },
   {
@@ -15,7 +15,11 @@ const routes: Routes = [
     component: ThreadComponent
   },
   {
-    path: 'thread/new/add',
+    path: 'thread/add',
+    component: ThreadFormComponent
+  },
+  {
+    path: 'thread/edit/:id',
     component: ThreadFormComponent
   }
 ];

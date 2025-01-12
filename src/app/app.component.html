@@ -3,7 +3,12 @@
     <mat-toolbar color="primary" class="header-toolbar">
       <span class="header-title" routerLink="/">Forum</span>
       <span class="spacer"></span>
-      <a *ngIf="!isLoggedIn" mat-button class="header-link" routerLink="/login">
+      <a
+        *ngIf="!isLoggedIn"
+        mat-button
+        class="header-link"
+        routerLink="user/login"
+      >
         <mat-icon>login</mat-icon>
         Log in
       </a>
@@ -11,7 +16,7 @@
         *ngIf="!isLoggedIn"
         mat-button
         class="header-link"
-        routerLink="/register"
+        routerLink="user/register"
       >
         <mat-icon>person_add</mat-icon>
         Register
@@ -36,14 +41,6 @@
   </header>
 
   <div class="content">
-    <div *ngIf="isHomePage" class="home-message">
-      <h1 class="titleBody">
-        Go check some Threads!
-        <button mat-raised-button color="primary" routerLink="/threads">
-          Here!
-        </button>
-      </h1>
-    </div>
     <router-outlet></router-outlet>
   </div>
 
