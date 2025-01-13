@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { response } from "express";
 
 import { AuthService } from "../../core/auth/auth-service";
@@ -21,7 +21,7 @@ export class ThreadFormComponent implements OnInit {
     threadId: 0,
     title: '',
     authorId: 0,
-    author: '',
+    authorNickname: '',
     description: '',
     creationDate: undefined,
     tags: [],
@@ -46,20 +46,19 @@ export class ThreadFormComponent implements OnInit {
       this.threadService.getThread(numericUserId).subscribe({
         next: (data) => {
           this.editedThread = data;
+
           this.threadForm = this.fb.group({
-            title: [this.editedThread.title, Validators.required],
-            description: [this.editedThread.description, Validators.required],
-            thread_images: [this.editedThread.images],
-            thread_tags: [this.editedThread.tags],
+            title: new FormControl(this.editedThread.title, Validators.required),
+            description: new FormControl(this.editedThread.description, Validators.required),
+            thread_images: new FormControl(this.editedThread.images),
+            thread_tags: new FormControl(this.editedThread.tags),
           });
         },
         error: (err) => {
-
           this.snackBarService.handleErrors(err.error, 'Ok');
         }
-      })
-    }
-    else {
+      });
+    } else {
       this.threadForm = this.fb.group({
         title: ['', Validators.required],
         description: ['', Validators.required],
@@ -68,6 +67,7 @@ export class ThreadFormComponent implements OnInit {
       });
     }
   }
+
 
   onSubmit(): void {
     const id = this.authService.getUserId();

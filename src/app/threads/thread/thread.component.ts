@@ -19,7 +19,7 @@ export class ThreadComponent implements OnInit {
     threadId: 0,
     image: '',
     title: '',
-    author: '',
+    authorNickname: '',
     authorId: 0,
     creationDate: undefined,
     description: '',
@@ -96,6 +96,7 @@ export class ThreadComponent implements OnInit {
       this.threadService.getThread(this.threadId).subscribe({
         next: (data) => {
           this.data = data;
+          console.log(data);
         },
         error: (err) => {
           this.snackBarService.handleErrors(err.error, 'Ok');
