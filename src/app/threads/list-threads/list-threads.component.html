@@ -10,15 +10,14 @@
           }"
         ></div>
         <mat-card-title>{{ thread.title }}</mat-card-title>
-        <mat-card-subtitle>
-          By {{ thread.authorNickname }} |
+        <mat-card-subtitle [routerLink]="['/user', thread.authorId]">
+          By {{ thread.authorNickname }} xxx |
           {{ thread.creationDate | date : "shortDate" }}
         </mat-card-subtitle>
         <mat-slide-toggle
           [checked]="thread.subscribe"
           (change)="onChange(thread.threadId)"
-          >Slide me!</mat-slide-toggle
-        >
+        ></mat-slide-toggle>
       </mat-card-header>
       <mat-card-content>
         <p>{{ thread.description }}</p>

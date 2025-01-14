@@ -54,6 +54,13 @@
       >
         <mat-icon>lock</mat-icon>
       </button>
+      <button
+        mat-icon-button
+        matTooltip="delete report"
+        (click)="removeReport(element.reportId)"
+      >
+        <mat-icon>delete_outline</mat-icon>
+      </button>
     </td>
   </ng-container>
 

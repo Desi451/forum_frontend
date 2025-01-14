@@ -12,7 +12,7 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  getBannedUsers(pageSize: number, pageNumber: number): Observable<BannedUser[]> {
+  getBannedUsers(pageNumber: number, pageSize: number): Observable<BannedUser[]> {
     const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
@@ -20,7 +20,7 @@ export class AdminService {
     return this.http.get<BannedUser[]>(`${environment.apiUrl}admin/banned-users`, { params });
   }
 
-  getReportedUsers(pageSize: number, pageNumber: number): Observable<ReportedUser[]> {
+  getReportedUsers(pageNumber: number, pageSize: number): Observable<ReportedUser[]> {
     const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());

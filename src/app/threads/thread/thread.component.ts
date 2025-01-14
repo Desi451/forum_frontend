@@ -5,6 +5,7 @@ import { CommentFormComponent } from '../../shared/comment-form/comment-form.com
 import { MatDialog } from '@angular/material/dialog';
 import { thread } from '../../models/thread';
 import { SnackBarService } from '../../core/services/snackbar-service';
+import { ReasonFormComponent } from '../../shared/reason-form/reason-form.component';
 
 @Component({
   selector: 'app-thread',
@@ -28,6 +29,12 @@ export class ThreadComponent implements OnInit {
     subthreads: [],
     subscribe: false
   };
+
+  public showSubthreads: boolean = false;
+
+  public toggleSubthreads() {
+    this.showSubthreads = !this.showSubthreads;
+  }
 
   defaultImage: string = 'assets/defaultThread.png';
 
@@ -96,7 +103,6 @@ export class ThreadComponent implements OnInit {
       this.threadService.getThread(this.threadId).subscribe({
         next: (data) => {
           this.data = data;
-          console.log(data);
         },
         error: (err) => {
           this.snackBarService.handleErrors(err.error, 'Ok');

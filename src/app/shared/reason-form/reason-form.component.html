@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Provide Reason <mat-icon>edit</mat-icon></h2>
+<mat-dialog-content>
+  <form [formGroup]="reasonForm" (ngSubmit)="onSubmit()" class="form-content">
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Reason</mat-label>
+      <textarea
+        id="reason"
+        matInput
+        formControlName="reason"
+        placeholder="Enter reason"
+        rows="3"
+        required
+      ></textarea>
+    </mat-form-field>
+
+    <div class="d-flex justify-content-center mb-3">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="reasonForm.invalid"
+      >
+        Submit
+      </button>
+
+      <button style="margin-left: 5px" mat-button (click)="close()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>

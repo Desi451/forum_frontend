@@ -9,7 +9,7 @@
         }"
       ></div>
       <mat-card-title>{{ data.title }}</mat-card-title>
-      <mat-card-subtitle>
+      <mat-card-subtitle [routerLink]="['/user', data.authorId]">
         By {{ data.authorNickname }} |
         {{ data.creationDate | date : "shortDate" }}
       </mat-card-subtitle>
@@ -67,10 +67,19 @@
         <button
           *ngIf="!parentThread"
           mat-mini-fab
+          style="margin-right: 5px"
           aria-label="Example icon button with a home icon"
           (click)="likeOrDislike(data.threadId, false)"
         >
           <mat-icon>thumb_down</mat-icon>
+        </button>
+        <button
+          style="margin-right: 5px"
+          *ngIf="data.subthreads.length > 0"
+          mat-mini-fab
+          (click)="toggleSubthreads()"
+        >
+          <mat-icon>arrow_downward</mat-icon>
         </button>
       </div>
     </mat-card-content>
@@ -78,7 +87,7 @@
 </div>
 
 <div
-  *ngIf="data.subthreads.length > 0"
+  *ngIf="showSubthreads && data.subthreads.length > 0"
   style="margin-left: 20px; margin-right: -20px"
 >
   <app-thread

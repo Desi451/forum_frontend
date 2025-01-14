@@ -3,6 +3,8 @@ import { UserService } from '../../core/services/user-service';
 import { ActivatedRoute } from '@angular/router';
 import { user } from '../../models/user';
 import { SnackBarService } from '../../core/services/snackbar-service';
+import { MatDialog } from '@angular/material/dialog';
+import { ReasonFormComponent } from '../../shared/reason-form/reason-form.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,6 +17,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private userService: UserService,
     private route: ActivatedRoute,
+    private dialog: MatDialog,
     private snackBarService: SnackBarService
   ) { }
 
@@ -24,11 +27,19 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.get(numericUserId).subscribe({
       next: (data) => {
+        console.log(data);
         this.userData = data;
       },
       error: (err) => {
         this.snackBarService.handleErrors(err.error, 'Ok');
       }
+    });
+  }
+
+  report(id: number | undefined) {
+    this.dialog.open(ReasonFormComponent, {
+      width: '400px',
+      data: { id }
     });
   }
 }

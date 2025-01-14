@@ -18,6 +18,8 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { ReasonFormComponent } from "../shared/reason-form/reason-form.component";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   exports: [
@@ -36,7 +38,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatSlideToggleModule,
     MatInputModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   declarations: [
     LoginComponent,
@@ -44,7 +47,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     EditProfileComponent,
     UserProfileComponent,
     UserThreadsComponent,
-    UserSubscribedThreadsComponent
+    UserSubscribedThreadsComponent,
+    ReasonFormComponent
   ]
 })
 export class UserModule { }

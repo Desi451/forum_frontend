@@ -50,7 +50,7 @@ export class BannedUsersComponent implements OnInit {
   }
 
   private loadData() {
-    this.adminService.getBannedUsers(this.bannedUsers.pageSize, this.bannedUsers.currentPage).subscribe({
+    this.adminService.getBannedUsers(this.bannedUsers.currentPage, this.bannedUsers.pageSize).subscribe({
       next: (data) => {
         this.bannedUsers.data = data;
       },

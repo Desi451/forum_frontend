@@ -5,7 +5,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MaterialModule } from "../core/material.module";
 import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from "@angular/common";
-import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatPaginatorIntl, MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminPanelComponent } from "./admin-panel/admin-panel.component";
@@ -18,6 +18,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { DislikedThreadsComponent } from './disliked-threads/disliked-threads.component';
 import { BanModalComponent } from './ban-modal/ban-modal.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CustomMatPaginatorIntl } from "./CustomPaginatorIntl";
 
 @NgModule({
   exports: [
@@ -47,6 +48,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ReportedUsersComponent,
     DislikedThreadsComponent,
     BanModalComponent,
-  ]
+  ],
+  providers: [{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }],
 })
 export class AdminModule { }

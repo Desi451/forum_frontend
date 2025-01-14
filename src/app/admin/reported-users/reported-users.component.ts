@@ -52,7 +52,7 @@ export class ReportedUsersComponent implements OnInit {
   }
 
   private loadData() {
-    this.adminService.getReportedUsers(this.reportedUsers.pageSize, this.reportedUsers.currentPage).subscribe({
+    this.adminService.getReportedUsers(this.reportedUsers.currentPage, this.reportedUsers.pageSize).subscribe({
       next: (data) => {
         this.reportedUsers.data = data;
       },
@@ -64,6 +64,18 @@ export class ReportedUsersComponent implements OnInit {
 
   userProfile(id: number) {
     this.router.navigate([`user/${id}`]);
+  }
+
+  removeReport(id: number) {
+    this.adminService.deleteReport(id).subscribe({
+      next: () => {
+        this.loadData();
+        this.snackBarService.openSnackBar("Report deleted!", "Ok");
+      },
+      error: (err) => {
+        this.snackBarService.handleErrors(err.error, 'Ok');
+      }
+    });
   }
 
   banUser(id: number) {

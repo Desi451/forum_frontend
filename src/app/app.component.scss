@@ -25,6 +25,8 @@ body {
 .content {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
   background-color: rgb(100, 100, 100);
 }
 
