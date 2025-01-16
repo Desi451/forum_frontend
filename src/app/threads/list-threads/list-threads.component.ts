@@ -18,7 +18,17 @@ export class ListThreadsComponent implements OnInit {
     currentPage: 1,
     pageSize: 2
   };
+
+  public dataSearch: ThreadListPagination = {
+    data: [],
+    totalCount: 0,
+    totalPages: 0,
+    currentPage: 1,
+    pageSize: 2
+  };
+
   defaultImage: string = 'assets/defaultThread.png';
+  searchQuery: string = '';
 
   constructor(
     private threadService: ThreadService,
@@ -63,5 +73,22 @@ export class ListThreadsComponent implements OnInit {
         this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
+  }
+
+  search(event: any) {
+    if (event.length > 2) {
+      this.threadService.searchThread(this.searchQuery, this.dataSearch.currentPage, this.dataSearch.pageSize).subscribe({
+        next: (res) => {
+          this.dataSearch = res;
+          this.data = res;
+        },
+        error: (err) => {
+          this.snackBarService.handleErrors(err.error, 'Ok');
+        }
+      });
+    }
+    else {
+      this.loadData();
+    }
   }
 }

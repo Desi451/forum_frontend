@@ -27,9 +27,6 @@ export class ReasonFormComponent {
   }
 
   onSubmit(): void {
-    console.log("wchodze")
-    console.log(this.reasonForm.valid);
-    console.log(this.reasonForm.value.reason);
     if (this.reasonForm.valid) {
       const reason = this.reasonForm.value.reason;
       this.userService.reportUser(this.id, reason).subscribe({

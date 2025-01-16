@@ -12,7 +12,7 @@ import { jwtDecode } from "jwt-decode";
 })
 export class AuthService {
   private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.getToken() !== null);
-  private adminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.getToken() !== null);
+  private adminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(Number(this.getUserRole()) > 0);
 
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object) { }
@@ -90,6 +90,21 @@ export class AuthService {
         try {
           const parsedData = JSON.parse(data);
           return parsedData.UserID ? +parsedData.UserID : undefined;
+        } catch (error) {
+          console.error('Error parsing userData:', error);
+        }
+      }
+    }
+    return undefined;
+  }
+
+  getUserRole(): string | undefined {
+    if (isPlatformBrowser(this.platformId)) {
+      const data = sessionStorage.getItem('userData');
+      if (data) {
+        try {
+          const parsedData = JSON.parse(data);
+          return parsedData.UserRole || undefined;
         } catch (error) {
           console.error('Error parsing userData:', error);
         }

@@ -1,5 +1,17 @@
 <div class="centered-container">
   <div class="threads-container">
+    <mat-form-field>
+      <input
+        matInput
+        type="search"
+        [(ngModel)]="searchQuery"
+        placeholder="Search..."
+        (ngModelChange)="search($event)"
+      />
+      <button matSuffix disabled="true" mat-icon-button aria-label="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
     <mat-card *ngFor="let thread of data.data" class="thread-card">
       <mat-card-header>
         <div

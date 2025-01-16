@@ -16,9 +16,7 @@
             <span class="infoValue">{{ userData?.mail }}</span>
           </div>
         </div>
-      </div>
 
-      <div class="right">
         <div id="profileImageContainer">
           <div class="fileUploadContainer">
             <ng-container *ngIf="userData?.profilePicture">
@@ -36,9 +34,6 @@
           </div>
         </div>
       </div>
-      <button mat-mini-fab (click)="report(userData?.id)">
-        <mat-icon>warning</mat-icon>
-      </button>
     </mat-card-content>
   </mat-card>
 </div>

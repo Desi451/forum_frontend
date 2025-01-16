@@ -52,7 +52,7 @@ export class RegistrationComponent {
       this._authService.register(res).subscribe(
         {
           next: () => {
-            this.router.navigate([`/login`]);
+            this.router.navigate([`/user/login`]);
             this._snackBarService.openSnackBar('Registered!', 'Ok');
           },
           error: (err) => {
