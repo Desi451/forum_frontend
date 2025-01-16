@@ -27,12 +27,15 @@ export class ReasonFormComponent {
   }
 
   onSubmit(): void {
+    console.log("wchodze")
+    console.log(this.reasonForm.valid);
+    console.log(this.reasonForm.value.reason);
     if (this.reasonForm.valid) {
       const reason = this.reasonForm.value.reason;
       this.userService.reportUser(this.id, reason).subscribe({
         next: () => {
-          this.snackBarService.openSnackBar('Sumbitted!', 'Ok');
           this.close();
+          this.snackBarService.openSnackBar('Sumbitted!', 'Ok');
         },
         error: (err) => {
           this.snackBarService.handleErrors(err.error, 'Ok');

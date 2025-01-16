@@ -18,7 +18,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { DislikedThreadsComponent } from './disliked-threads/disliked-threads.component';
 import { BanModalComponent } from './ban-modal/ban-modal.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { CustomMatPaginatorIntl } from "./CustomPaginatorIntl";
 
 @NgModule({
   exports: [
@@ -49,6 +48,6 @@ import { CustomMatPaginatorIntl } from "./CustomPaginatorIntl";
     DislikedThreadsComponent,
     BanModalComponent,
   ],
-  providers: [{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }],
+  providers: [{ provide: MatPaginatorIntl }],
 })
 export class AdminModule { }

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { environment } from "../enviroment";
-import { BannedUser, BanReason, ReportedUser } from "../../models/admin";
+import { BannedUser, BannedUserListPagination, BanReason, ReportedUser, ReportedUserListPagination } from "../../models/admin";
 
 @Injectable({
   providedIn: 'root'
@@ -12,24 +12,24 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  getBannedUsers(pageNumber: number, pageSize: number): Observable<BannedUser[]> {
+  getBannedUsers(pageNumber: number, pageSize: number): Observable<BannedUserListPagination> {
     const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
 
-    return this.http.get<BannedUser[]>(`${environment.apiUrl}admin/banned-users`, { params });
+    return this.http.get<BannedUserListPagination>(`${environment.apiUrl}admin/banned-users`, { params });
   }
 
-  getReportedUsers(pageNumber: number, pageSize: number): Observable<ReportedUser[]> {
+  getReportedUsers(pageNumber: number, pageSize: number): Observable<ReportedUserListPagination> {
     const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
 
-    return this.http.get<ReportedUser[]>(`${environment.apiUrl}admin/reported-users`, { params });
+    return this.http.get<ReportedUserListPagination>(`${environment.apiUrl}admin/reported-users`, { params });
   }
 
-  deleteReport(reportId: number): Observable<void> {
-    return this.http.delete<void>(`${environment.apiUrl}admin/delete-report/${reportId}`);
+  deleteReport(reportId: number): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${environment.apiUrl}admin/delete-report/${reportId}`);
   }
 
   unbanUser(userId: number): Observable<string> {

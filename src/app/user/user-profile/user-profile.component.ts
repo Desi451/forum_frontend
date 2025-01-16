@@ -27,7 +27,6 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.get(numericUserId).subscribe({
       next: (data) => {
-        console.log(data);
         this.userData = data;
       },
       error: (err) => {

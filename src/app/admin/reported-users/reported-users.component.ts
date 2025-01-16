@@ -54,7 +54,7 @@ export class ReportedUsersComponent implements OnInit {
   private loadData() {
     this.adminService.getReportedUsers(this.reportedUsers.currentPage, this.reportedUsers.pageSize).subscribe({
       next: (data) => {
-        this.reportedUsers.data = data;
+        this.reportedUsers = data;
       },
       error: (err) => {
         this.snackBarService.handleErrors(err.error, 'Ok');
@@ -68,7 +68,7 @@ export class ReportedUsersComponent implements OnInit {
 
   removeReport(id: number) {
     this.adminService.deleteReport(id).subscribe({
-      next: () => {
+      next: (response) => {
         this.loadData();
         this.snackBarService.openSnackBar("Report deleted!", "Ok");
       },
