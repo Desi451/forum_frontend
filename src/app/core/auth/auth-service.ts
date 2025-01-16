@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, tap } from "rxjs";
 import { addUser, CustomJwtPayload, loginUser } from "../../models/user";
 import { environment } from "../enviroment";
 import { jwtDecode } from "jwt-decode";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AuthService {
   private adminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(Number(this.getUserRole()) > 0);
 
   constructor(private http: HttpClient,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object) { }
 
   login(login: loginUser): Observable<any> {
@@ -119,5 +121,9 @@ export class AuthService {
 
   get isAdmin$(): Observable<boolean> {
     return this.adminSubject.asObservable();
+  }
+
+  goForbidden(): void {
+    this.router.navigate(['/401']);
   }
 }

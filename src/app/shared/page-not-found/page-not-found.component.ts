@@ -12,8 +12,8 @@ export class PageNotFoundComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.router.navigate(['/']); // Przekierowanie do strony głównej
-    }, 5000); // 5 sekund
+      this.router.navigate(['/']);
+    }, 5000);
   }
 
 }

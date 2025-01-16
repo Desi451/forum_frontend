@@ -32,6 +32,10 @@ const routes: Routes = [
     component: PrivacyComponent
   },
   {
+    path: '401',
+    component: PageForbiddenComponent
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
     pathMatch: 'full'
