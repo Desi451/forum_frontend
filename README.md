@@ -1,27 +1,84 @@
-# ForumFrontend
+# Forum Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+To repozytorium zawiera frontend aplikacji forum. Projekt został zbudowany w oparciu o **Angular**, oferując responsywny i przyjazny interfejs użytkownika do interakcji z forum.
 
-## Development server
+## Spis Treści
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. [Funkcje](#funkcje)  
+2. [Wykorzystane Technologie](#wykorzystane-technologie)  
+3. [Rozpoczęcie Pracy](#rozpoczęcie-pracy)  
+   - [Wymagania wstępne](#wymagania-wstępne)  
+   - [Instalacja](#instalacja)  
+   - [Uruchamianie aplikacji](#uruchamianie-aplikacji)  
+4. [Struktura Katalogów](#struktura-katalogów)  
 
-## Code scaffolding
+## Funkcje
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Autoryzacja i uwierzytelnianie użytkowników  
+- Lista tematów forum z możliwością filtrowania  
+- Tworzenie, edytowanie i usuwanie postów  
+- Odpowiadanie na posty i obsługa zagnieżdżonych komentarzy  
+- Responsywny design dla urządzeń mobilnych i komputerów  
+- Integracja z API backendowym  
 
-## Build
+## Wykorzystane Technologie
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Framework**: Angular  
+- **Zarządzanie stanem**: RxJS  
+- **Stylowanie**: SCSS  
+- **Biblioteka komponentów**: Angular Material  
+- **Obsługa Drag & Drop**: Angular CDK  
 
-## Running unit tests
+## Rozpoczęcie Pracy
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Wymagania wstępne
 
-## Running end-to-end tests
+Przed rozpoczęciem pracy upewnij się, że masz zainstalowane następujące narzędzia:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Node.js** (zalecana wersja v16+)  
+- **Angular CLI** (zalecana wersja v14+)  
+- **npm** (w zestawie z Node.js)  
 
-## Further help
+### Instalacja
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. Sklonuj repozytorium:
+   ```bash
+   git clone https://github.com/Desi451/forum_frontend.git
+   cd forum_frontend
+   ```
+
+2. Zainstaluj zależności:
+   ```bash
+   npm install
+   ```
+
+### Uruchamianie aplikacji
+
+3. Uruchom aplikację:
+   ```bash
+   ng serve
+   ```
+
+4. Otwórz przeglądarkę i przejdź do:
+   ```
+   http://localhost:4200
+   ```
+
+## Struktura Katalogów
+
+```
+forum_frontend/
+├── src/
+│   ├── app/                   # Główny moduł aplikacji
+│   │   ├── components/        # Reużywalne komponenty interfejsu użytkownika
+│   │   ├── services/          # Usługi do komunikacji z API
+│   │   ├── models/            # Modele danych/interfejsy
+│   │   ├── pages/             # Komponenty odpowiadające za strony
+│   │   └── app.module.ts      # Główny moduł Angulara
+│   ├── assets/                # Zasoby statyczne (np. obrazy, czcionki)
+│   ├── environments/          # Konfiguracje środowisk
+│   └── styles.scss            # Globalne style SCSS
+├── angular.json               # Konfiguracja Angulara
+├── package.json               # Zależności i skrypty
+└── README.md                  # Dokumentacja
+```
