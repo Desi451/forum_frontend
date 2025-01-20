@@ -70,13 +70,16 @@ Przed rozpoczęciem pracy upewnij się, że masz zainstalowane następujące nar
 forum_frontend/
 ├── src/
 │   ├── app/                   # Główny moduł aplikacji
-│   │   ├── components/        # Reużywalne komponenty interfejsu użytkownika
-│   │   ├── services/          # Usługi do komunikacji z API
+│   │   ├── admin/             # Komponenty związane z panelem administratora
+│   │   ├── core/              # Autoryzacja, serwisy i konfiguracje środowisk
+│   │   │   ├── auth/          # Serwis autoryzacji, interceptor
+│   │   │   └── services/      # Serwisy do komunikacji z API dla komponentów
 │   │   ├── models/            # Modele danych/interfejsy
-│   │   ├── pages/             # Komponenty odpowiadające za strony
+│   │   ├── threads/           # Komponenty związane z wątkami
+│   │   ├── user/              # Komponenty związane z użytkownikiem
+│   │   ├── shared/            # Komponenty ogólnodostępne
 │   │   └── app.module.ts      # Główny moduł Angulara
 │   ├── assets/                # Zasoby statyczne (np. obrazy, czcionki)
-│   ├── environments/          # Konfiguracje środowisk
 │   └── styles.scss            # Globalne style SCSS
 ├── angular.json               # Konfiguracja Angulara
 ├── package.json               # Zależności i skrypty
