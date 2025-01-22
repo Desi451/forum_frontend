@@ -13,11 +13,19 @@
         By {{ data.authorNickname }} |
         {{ data.creationDate | date : "shortDate" }}
       </mat-card-subtitle>
+      <mat-slide-toggle
+        *ngIf="data?.likes"
+        [checked]="data.subscribe"
+        (change)="onChange(data.threadId)"
+      ></mat-slide-toggle>
+      <span *ngIf="data?.likes" class="span-likes" style="text-align: right"
+        >Likes: {{ data.likes }}</span
+      >
     </mat-card-header>
     <mat-card-content>
       <p>{{ data.description }}</p>
       <div *ngIf="!parentThread" class="tags-and-actions">
-        <div class="tags">
+        <div class="tags" style="margin-bottom: 3px">
           <span *ngFor="let tag of data.tags" class="tag">#{{ tag }}</span>
         </div>
       </div>

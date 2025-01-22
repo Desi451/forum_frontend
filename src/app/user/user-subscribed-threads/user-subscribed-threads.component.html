@@ -19,6 +19,9 @@
           (change)="onChange(thread)"
           >Slide me!</mat-slide-toggle
         >
+        <span *ngIf="thread?.likes" class="span-likes" style="text-align: right"
+          >Likes: {{ thread.likes }}</span
+        >
       </mat-card-header>
       <mat-card-content>
         <p>{{ thread.description }}</p>

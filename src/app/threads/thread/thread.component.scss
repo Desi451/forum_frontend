@@ -6,8 +6,15 @@
   width: 60%;
 }
 
-mat-card-content {
-  color: whitesmoke;
+mat-card-title {
+  color: #7b1fa2;
+  font-weight: bold;
+  text-align: start;
+}
+
+mat-card-subtitle {
+  padding: 10px;
+  color: #9e9e9e;
 }
 
 .container {

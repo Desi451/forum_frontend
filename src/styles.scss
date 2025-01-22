@@ -1,5 +1,11 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 mat-card-title {
   display: flex;
@@ -15,4 +21,23 @@ router-outlet {
 mat-card {
   border: 2px solid #7b1fa2;
   border-radius: 10px;
+}
+
+mat-slide-toggle {
+  margin: auto;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+mat-card-subtitle {
+  cursor: pointer;
+}
+
+.span-likes {
+  cursor: default;
+  color: whitesmoke;
+}
+
+mat-card-content {
+  color: whitesmoke;
 }

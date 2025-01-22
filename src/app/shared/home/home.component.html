@@ -2,9 +2,55 @@
   <div *ngIf="isHomePage" class="home-message">
     <h1 class="titleBody">
       Go check some Threads!
-      <button mat-raised-button color="primary" routerLink="/threads">
+      <button
+        mat-raised-button
+        color="primary"
+        routerLink="/threads"
+        style="margin: auto"
+      >
         Here!
       </button>
     </h1>
+
+    <div class="centered-container">
+      <div class="threads-container">
+        <h1 class="titleBody" style="margin: 0">Top rated threads:</h1>
+        <mat-card *ngFor="let thread of data.data" class="thread-card">
+          <mat-card-header>
+            <div
+              mat-card-avatar
+              class="thread-avatar"
+              [ngStyle]="{
+                'background-image':
+                  'url(' + (thread.image || defaultImage) + ')'
+              }"
+            ></div>
+            <mat-card-title>{{ thread.title }}</mat-card-title>
+            <mat-card-subtitle [routerLink]="['/user', thread.authorId]">
+              By {{ thread.authorNickname }} |
+              {{ thread.creationDate | date : "shortDate" }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ thread.description }}</p>
+            <div class="tags-and-actions">
+              <div class="tags">
+                <span *ngFor="let tag of thread.tags" class="tag"
+                  >#{{ tag }}</span
+                >
+              </div>
+              <button
+                mat-raised-button
+                color="primary"
+                class="details-button"
+                (click)="onDetails(thread.threadId)"
+              >
+                Details
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
   </div>
 </div>

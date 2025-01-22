@@ -20,6 +20,7 @@ export class ThreadFormComponent implements OnInit {
   editedThread: thread = {
     threadId: 0,
     title: '',
+    likes: 0,
     authorId: 0,
     authorNickname: '',
     description: '',

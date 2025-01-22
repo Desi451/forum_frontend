@@ -22,6 +22,7 @@ export class ThreadComponent implements OnInit {
     title: '',
     authorNickname: '',
     authorId: 0,
+    likes: 0,
     creationDate: undefined,
     description: '',
     tags: [],
@@ -102,6 +103,7 @@ export class ThreadComponent implements OnInit {
       this.threadService.getThread(this.threadId).subscribe({
         next: (data) => {
           this.data = data;
+          console.log(this.data);
         },
         error: (err) => {
           this.snackBarService.handleErrors(err.error, 'Ok');
@@ -110,5 +112,16 @@ export class ThreadComponent implements OnInit {
     } else {
       this.data = this.thread;
     }
+  }
+
+  onChange(threadId: number) {
+    this.threadService.subscribeThread(threadId).subscribe({
+      next: (res) => {
+        this.snackBarService.openSnackBar('Subscribed!', 'Ok');
+      },
+      error: (err) => {
+        this.snackBarService.handleErrors(err.error, 'Ok');
+      }
+    });
   }
 }

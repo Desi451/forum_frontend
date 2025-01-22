@@ -76,6 +76,10 @@ export class ThreadService {
     return this.http.get<ThreadListPagination>(`${environment.apiUrl}thread/subscriptions`, { params });
   }
 
+  getTopThreads(): Observable<ThreadListPagination> {
+    return this.http.get<ThreadListPagination>(`${environment.apiUrl}thread/top-liked-threads`);
+  }
+
   getThread(id: number): Observable<thread> {
     return this.http.get<thread>(`${environment.apiUrl}thread/thread/${id}`,);
   }
@@ -103,6 +107,5 @@ export class ThreadService {
       .set('keyWord', keyWord);
 
     return this.http.get<ThreadListPagination>(`${environment.apiUrl}thread/search`, { params });
-
   }
 }

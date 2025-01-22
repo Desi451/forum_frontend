@@ -8,6 +8,7 @@ export type thread = {
   tags: string[];
   image: string;
   images: string[];
+  likes: number;
   subthreads: thread[];
   subscribe: boolean;
 }
