@@ -30,6 +30,11 @@
               By {{ thread.authorNickname }} |
               {{ thread.creationDate | date : "shortDate" }}
             </mat-card-subtitle>
+            <span
+              class="span-likes"
+              style="text-align: right; margin-left: auto"
+              >Likes: {{ thread.likes }}</span
+            >
           </mat-card-header>
           <mat-card-content>
             <p>{{ thread.description }}</p>

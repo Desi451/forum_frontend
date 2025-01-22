@@ -14,11 +14,10 @@
         {{ data.creationDate | date : "shortDate" }}
       </mat-card-subtitle>
       <mat-slide-toggle
-        *ngIf="data?.likes"
         [checked]="data.subscribe"
         (change)="onChange(data.threadId)"
       ></mat-slide-toggle>
-      <span *ngIf="data?.likes" class="span-likes" style="text-align: right"
+      <span *ngIf="!parentThread" class="span-likes" style="text-align: right"
         >Likes: {{ data.likes }}</span
       >
     </mat-card-header>
