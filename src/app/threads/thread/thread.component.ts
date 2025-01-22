@@ -71,9 +71,8 @@ export class ThreadComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.snackBarService.openSnackBar('Sumbitted', 'Ok');
+        this.loadData();
       }
-      this.loadData();
     });
   }
 

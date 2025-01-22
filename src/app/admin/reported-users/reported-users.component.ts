@@ -51,7 +51,7 @@ export class ReportedUsersComponent implements OnInit {
     this.loadData();
   }
 
-  private loadData() {
+  public loadData() {
     this.adminService.getReportedUsers(this.reportedUsers.currentPage, this.reportedUsers.pageSize).subscribe({
       next: (data) => {
         this.reportedUsers = data;

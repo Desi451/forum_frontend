@@ -12,18 +12,18 @@ import { SnackBarService } from '../../core/services/snackbar-service';
 export class BanModalComponent {
   banReason: string = '';
   banExpirationDate: Date | null = null;
-  id!: number;
+  id: number;
 
   constructor(private dialogRef: MatDialogRef<BanModalComponent>,
     private adminService: AdminService,
     private snackBarService: SnackBarService,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number }
+    @Inject(MAT_DIALOG_DATA) public data: number
   ) {
-    this.id = this.data.id;
+    this.id = this.data;
   }
 
   confirmBan(): void {
-    if (!this.banReason || !this.banExpirationDate || this.id) {
+    if (!this.banReason || !this.banExpirationDate || !this.id) {
       this.snackBarService.openSnackBar('Please provide both a reason and a date for the ban', 'Ok');
       return;
     }
@@ -32,10 +32,9 @@ export class BanModalComponent {
       reason: this.banReason,
       bannedUntil: this.banExpirationDate
     }
-
     this.adminService.banUser(this.id, res).subscribe({
       next: () => {
-        this.close();
+        this.close(true);
         this.snackBarService.openSnackBar('User banned!', 'Ok');
       },
       error: (err) => {
@@ -44,7 +43,7 @@ export class BanModalComponent {
     });
   }
 
-  close(): void {
-    this.dialogRef.close();
+  close(res: boolean): void {
+    this.dialogRef.close(res);
   }
 }

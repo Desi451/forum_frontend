@@ -46,7 +46,7 @@ export class DislikedThreadsComponent implements OnInit {
     this.loadData();
   }
 
-  private loadData() {
+  public loadData() {
     this.threadService.getDislikedThreads(this.threads.currentPage, this.threads.pageSize).subscribe({
       next: (data) => {
         this.threads = data;

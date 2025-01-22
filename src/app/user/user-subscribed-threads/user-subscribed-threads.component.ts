@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThreadListPagination } from '../../models/thread';
+import { thread, ThreadListPagination } from '../../models/thread';
 import { ThreadService } from '../../core/services/thread-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
@@ -54,11 +54,11 @@ export class UserSubscribedThreadsComponent implements OnInit {
     });
   }
 
-  onChange(threadId: number) {
-    this.threadService.subscribeThread(threadId).subscribe({
+  onChange(threadId: thread) {
+    this.threadService.subscribeThread(threadId.threadId).subscribe({
       next: (res) => {
         this.loadData();
-        this.snackBarService.openSnackBar('Thread subscribed!', 'Ok');
+        this.snackBarService.openSnackBar(res.message, 'Ok');
       },
       error: (err) => {
         this.snackBarService.handleErrors(err.error, 'Ok');

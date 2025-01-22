@@ -43,6 +43,7 @@ export class CommentFormComponent {
       this.threadService.addSub(thread).subscribe({
         next: (response) => {
           this.snackBarService.openSnackBar('Commet added!', 'Ok');
+          this.dialogRef.close(true);
         },
         error: (err) => {
           this.snackBarService.handleErrors(err.error, 'Ok');
@@ -60,6 +61,6 @@ export class CommentFormComponent {
   }
 
   close(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }

@@ -37,6 +37,7 @@ export class AdminService {
   }
 
   banUser(userId: number, reason: BanReason): Observable<any> {
+    console.log(reason);
     return this.http.post<any>(`${environment.apiUrl}admin/ban-user/${userId}`, { banData: reason });
   }
 }
