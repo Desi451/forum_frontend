@@ -56,18 +56,20 @@
 
         <div class="formPanel">
           <form [formGroup]="passwordForm" (ngSubmit)="savePassword()">
-            <mat-form-field appearance="fill" class="w-100 mb-3">
-              <mat-label>Password</mat-label>
-              <input
-                id="password"
-                type="password"
-                matInput
-                formControlName="password"
-                placeholder="Enter your password"
-                required
-              />
-              <mat-icon>lock</mat-icon>
-            </mat-form-field>
+            <div class="box">
+              <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Password</mat-label>
+                <input
+                  id="password"
+                  type="password"
+                  matInput
+                  formControlName="password"
+                  placeholder="Enter your password"
+                  required
+                />
+                <mat-icon>lock</mat-icon>
+              </mat-form-field>
+            </div>
             <div class="box-button">
               <button mat-fab [disabled]="passwordForm.invalid">
                 <mat-icon>save</mat-icon>
@@ -78,7 +80,12 @@
       </div>
 
       <div class="right">
-        <form id="editForm" name="editForm" [formGroup]="editFormImage">
+        <form
+          id="editForm"
+          name="editForm"
+          [formGroup]="editFormImage"
+          class="box-image"
+        >
           <mat-form-field appearance="fill">
             <mat-label>Profile Image</mat-label>
             <div

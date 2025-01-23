@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.threadService.getTopThreads().subscribe(res => {
       this.data = res;
-      console.log(this.data);
     });
 
     this.router.events.subscribe(() => {

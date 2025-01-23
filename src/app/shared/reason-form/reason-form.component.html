@@ -14,13 +14,7 @@
     </mat-form-field>
 
     <div class="d-flex justify-content-center mb-3">
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="reasonForm.invalid"
-        (click)="onSubmit()"
-      >
+      <button mat-raised-button color="primary" [disabled]="reasonForm.invalid">
         Submit
       </button>
 

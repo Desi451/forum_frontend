@@ -13,7 +13,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { CommentFormComponent } from "../shared/comment-form/comment-form.component";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ReasonFormComponent } from "../shared/reason-form/reason-form.component";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
   exports: [
@@ -30,6 +30,7 @@ import { ReasonFormComponent } from "../shared/reason-form/reason-form.component
     ThreadRoutingModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatTooltipModule,
     MatSlideToggleModule
   ],
   declarations: [

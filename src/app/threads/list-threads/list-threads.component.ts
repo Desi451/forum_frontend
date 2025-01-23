@@ -67,7 +67,7 @@ export class ListThreadsComponent implements OnInit {
   onChange(threadId: number) {
     this.threadService.subscribeThread(threadId).subscribe({
       next: (res) => {
-        this.snackBarService.openSnackBar('Subscribed!', 'Ok');
+        this.snackBarService.openSnackBar(res.message, 'Ok');
       },
       error: (err) => {
         this.snackBarService.handleErrors(err.error, 'Ok');

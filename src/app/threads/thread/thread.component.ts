@@ -86,9 +86,9 @@ export class ThreadComponent implements OnInit {
     else {
       num = -1
     }
-    this.threadService.likeDislike(this.threadId, num).subscribe({
-      next: (data) => {
-        this.data = data;
+    this.threadService.likeDislike(id, num).subscribe({
+      next: () => {
+        this.loadData();
         this.snackBarService.openSnackBar('Sumbitted!', 'Ok');
       },
       error: (err) => {
@@ -103,7 +103,6 @@ export class ThreadComponent implements OnInit {
       this.threadService.getThread(this.threadId).subscribe({
         next: (data) => {
           this.data = data;
-          console.log(this.data);
         },
         error: (err) => {
           this.snackBarService.handleErrors(err.error, 'Ok');
@@ -116,7 +115,7 @@ export class ThreadComponent implements OnInit {
 
   onChange(threadId: number) {
     this.threadService.subscribeThread(threadId).subscribe({
-      next: (res) => {
+      next: () => {
         this.snackBarService.openSnackBar('Subscribed!', 'Ok');
       },
       error: (err) => {

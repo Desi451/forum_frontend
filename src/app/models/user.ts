@@ -43,11 +43,6 @@ export type updateImage = {
   image: string;
 };
 
-export type banUser = {
-  reason: string;
-  bannedUntil: Date;
-}
-
 export interface CustomJwtPayload {
   UserID: string;
   UserLogin: string;

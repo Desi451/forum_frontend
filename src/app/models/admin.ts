@@ -43,5 +43,5 @@ export type ReportedUserListPagination = {
 
 export type BanReason = {
   reason: string;
-  bannedUntil: Date;
+  bannedUntil: string;
 }

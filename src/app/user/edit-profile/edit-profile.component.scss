@@ -19,6 +19,7 @@ form {
 
 mat-form-field {
   width: 100%;
+  max-width: 400px;
 }
 
 mat-card {
@@ -36,7 +37,6 @@ mat-card-title {
   opacity: 1;
   padding-top: 25px;
   display: flex;
-  align-items: center;
   gap: 10px;
 }
 
@@ -64,14 +64,6 @@ mat-card-content {
   flex-direction: column;
 }
 
-.left {
-  padding-right: 20px;
-}
-
-.right {
-  padding-left: 20px;
-}
-
 .action {
   max-width: 200px;
   width: 200px;
@@ -83,7 +75,7 @@ mat-card-content {
   flex-direction: column;
   margin: 0 auto;
   width: 200px;
-  height: 269px;
+  height: 250px;
   text-align: center;
   justify-content: center;
 
@@ -171,4 +163,13 @@ mat-tab-group {
   justify-content: center;
   align-items: top;
   margin-bottom: 20px;
+}
+
+.box-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  height: 100vh;
 }

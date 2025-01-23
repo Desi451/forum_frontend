@@ -6,7 +6,6 @@ import { SnackBarService } from '../../core/services/snackbar-service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BanModalComponent } from '../ban-modal/ban-modal.component';
-import { filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-reported-users',
@@ -56,8 +55,8 @@ export class ReportedUsersComponent implements OnInit {
       next: (data) => {
         this.reportedUsers = data;
       },
-      error: (err) => {
-        this.snackBarService.handleErrors(err.error, 'Ok');
+      error: (r) => {
+        this.reportedUsers.data = [];
       }
     });
   }

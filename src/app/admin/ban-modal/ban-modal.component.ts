@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AdminService } from '../../core/services/admin-service';
-import { banUser } from '../../models/user';
 import { SnackBarService } from '../../core/services/snackbar-service';
+import { BanReason } from '../../models/admin';
 
 @Component({
   selector: 'app-ban-modal',
@@ -28,9 +28,9 @@ export class BanModalComponent {
       return;
     }
 
-    const res: banUser = {
+    const res: BanReason = {
       reason: this.banReason,
-      bannedUntil: this.banExpirationDate
+      bannedUntil: this.banExpirationDate.toISOString()
     }
     this.adminService.banUser(this.id, res).subscribe({
       next: () => {
@@ -38,6 +38,7 @@ export class BanModalComponent {
         this.snackBarService.openSnackBar('User banned!', 'Ok');
       },
       error: (err) => {
+        this.close(false);
         this.snackBarService.handleErrors(err.error, 'Ok');
       }
     });
