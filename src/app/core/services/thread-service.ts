@@ -13,7 +13,6 @@ export class ThreadService {
   constructor(private http: HttpClient) { }
 
   add(data: createThread): Observable<any> {
-
     const formData = new FormData();
 
     formData.append('userId', data.userId.toString());
@@ -89,7 +88,15 @@ export class ThreadService {
   }
 
   editThread(threadId: number, edit: editThread): Observable<any> {
-    return this.http.patch<any>(`${environment.apiUrl}thread/edit-thread/${threadId}`, { editThreadDTO: edit });
+    const formData = new FormData();
+
+    formData.append('title', edit.title);
+    formData.append('description', edit.description);
+    edit.tags.forEach((tag) => {
+      formData.append('tags', tag);
+    });
+
+    return this.http.patch<any>(`${environment.apiUrl}thread/edit-thread/${threadId}`, formData);
   }
 
   deleteThread(threadId: number): Observable<any> {

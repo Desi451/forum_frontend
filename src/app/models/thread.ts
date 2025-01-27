@@ -15,7 +15,7 @@ export type thread = {
 
 export type editThread = {
   title: string;
-  descrption: string;
+  description: string;
   tags: string[];
   images: string[];
 }

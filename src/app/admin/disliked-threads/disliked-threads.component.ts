@@ -36,7 +36,6 @@ export class DislikedThreadsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadData();
   }
 
   handlePageEvent(e: PageEvent) {

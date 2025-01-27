@@ -40,7 +40,6 @@ export class ReportedUsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadData();
   }
 
   handlePageEvent(e: PageEvent) {
@@ -78,6 +77,16 @@ export class ReportedUsersComponent implements OnInit {
   }
 
   banUser(id: number) {
-    this.dialog.open(BanModalComponent, { data: id });
+    this.dialog.open(BanModalComponent, { data: id })
+      .afterClosed()
+      .subscribe({
+        next: () => {
+          this.loadData();
+          this.snackBarService.openSnackBar('User banned!', 'Ok');
+        },
+        error: (err) => {
+          this.snackBarService.handleErrors(err.error, 'Ok');
+        }
+      });
   }
 }

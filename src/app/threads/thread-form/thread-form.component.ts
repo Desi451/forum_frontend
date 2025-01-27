@@ -1,10 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { response } from "express";
 
 import { AuthService } from "../../core/auth/auth-service";
 import { ThreadService } from "../../core/services/thread-service";
-import { createThread, thread } from "../../models/thread";
+import { createThread, editThread, thread } from "../../models/thread";
 import { SnackBarService } from "../../core/services/snackbar-service";
 import { ActivatedRoute } from "@angular/router";
 
@@ -40,6 +39,13 @@ export class ThreadFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.threadForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      thread_images: [''],
+      thread_tags: ['']
+    });
+
     const userId = this.route.snapshot.paramMap.get('id');
     const numericUserId = Number(userId);
 
@@ -48,36 +54,43 @@ export class ThreadFormComponent implements OnInit {
         next: (data) => {
           this.editedThread = data;
 
-          this.threadForm = this.fb.group({
-            title: new FormControl(this.editedThread.title, Validators.required),
-            description: new FormControl(this.editedThread.description, Validators.required),
-            thread_images: new FormControl(this.editedThread.images),
-            thread_tags: new FormControl(this.editedThread.tags),
+          this.threadForm.setValue({
+            title: this.editedThread.title || '',
+            description: this.editedThread.description || '',
+            thread_images: this.editedThread.images || '',
+            thread_tags: this.editedThread.tags || ''
           });
         },
         error: (err) => {
           this.snackBarService.handleErrors(err.error, 'Ok');
         }
       });
-    } else {
-      this.threadForm = this.fb.group({
-        title: ['', Validators.required],
-        description: ['', Validators.required],
-        thread_images: [''],
-        thread_tags: [''],
-      });
     }
   }
-
 
   onSubmit(): void {
     const id = this.authService.getUserId();
 
     if (this.threadForm.valid && id && this.editedThread.threadId > 0) {
-      //TODO update thread
+      const thread: editThread = {
+        title: this.threadForm.value.title,
+        description: this.threadForm.value.description,
+        images: [''],
+        tags: this.splitString(this.threadForm.value.thread_tags),
+      }
+
+      this.threadService.editThread(this.editedThread.threadId, thread).subscribe({
+        next: () => {
+          this.snackBarService.openSnackBar('Thread updated!', 'Ok');
+        },
+        error: (err) => {
+
+          this.snackBarService.handleErrors(err.error, 'Ok');
+        }
+      });
     }
 
-    if (this.threadForm.valid && id) {
+    if (this.threadForm.valid && id && this.editedThread.threadId < 0) {
 
       const thread: createThread = {
         title: this.threadForm.value.title,
